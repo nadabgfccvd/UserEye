@@ -1,0 +1,360 @@
+{
+  "language": "fr",
+  "report": "Rapport UserEye",
+  "run": "Exécution",
+  "statusPassed": "RÉUSSI",
+  "statusFailed": "ÉCHOUÉ",
+  "summary": "Résumé",
+  "scope": "Portée et environnement",
+  "adaptive": "Exploration adaptative",
+  "protocols": "Protocoles concurrents",
+  "codeQuality": "Qualité du code",
+  "issues": "Problèmes",
+  "journey": "Parcours",
+  "perception": "Perception",
+  "patience": {
+    "moodCalm": "Serein",
+    "moodCalmDesc": "L'expérience répond de manière prévisible et transmet du contrôle.",
+    "moodAttentive": "Attentif",
+    "moodAttentiveDesc": "De petites frictions ont été perçues, mais l'utilisateur fait toujours confiance au parcours.",
+    "moodImpatient": "Impatient",
+    "moodImpatientDesc": "Les délais ou échecs commencent à exiger effort et répétition.",
+    "moodFrustrated": "Frustré",
+    "moodFrustratedDesc": "L'expérience présente assez de friction pour provoquer un abandon partiel.",
+    "moodAbandonment": "Risque d'abandon",
+    "moodAbandonmentDesc": "L'utilisateur va probablement quitter le parcours ou chercher une autre solution.",
+    "controlFallback": "contrôle",
+    "noFeedback": "Action sans confirmation visuelle détectable",
+    "feedback3000": "Premier retour seulement après {ms} ms",
+    "feedback1000": "Premier retour après {ms} ms",
+    "feedback300": "Le retour perceptible a pris {ms} ms",
+    "feedback100": "Le retour n'était pas instantané ({ms} ms)",
+    "settle": "L'action a pris {ms} ms à se stabiliser",
+    "waitNoLoader": "Attente de {ms} ms sans indicateur de chargement",
+    "loaderLate": "L'indicateur de chargement est apparu tard ({ms} ms)",
+    "rageClicks": "Trois clics rapides sans réponse claire sur «{name}»",
+    "httpError": "HTTP {status}",
+    "httpErrorFallback": "erreur",
+    "misclickHarmful": "a provoqué un effet",
+    "misclickConfusing": "a eu un résultat confus",
+    "misclickPenalty": "Clic accidentel {adjective}: {effect}",
+    "disclaimer": "Heuristique UX basée sur la latence, le retour visuel, le chargement, les erreurs et les clics accidentels ; elle ne mesure pas de réelles émotions humaines."
+  },
+  "patienceLabel": "Patience",
+  "accessibility": "Accessibilité",
+  "telemetry": "Télémétrie",
+  "artifacts": "Artefacts",
+  "evidence": "Preuves",
+  "steps": "Étapes",
+  "passed": "Réussis",
+  "failed": "Échoués",
+  "warnings": "Avertissements",
+  "checks": "Contrôles",
+  "interactions": "Interactions",
+  "observations": "Observations",
+  "findings": {
+    "visible-hidden-elements": {
+      "title": "Des éléments marqués comme masqués restent visibles",
+      "actual": "{count} élément(s) marqué(s) masqué(s) restent rendus."
+    },
+    "horizontal-overflow": {
+      "title": "La page a un défilement horizontal inattendu",
+      "actual": "{px} px au-delà de la largeur de la fenêtre."
+    },
+    "duplicate-ids": {
+      "title": "Les ID en double peuvent casser libellés et contrôles",
+      "actual": "{count} ID dupliqué(s)."
+    },
+    "multiple-visible-dialogs": {
+      "title": "Plus d'un dialogue est visible",
+      "actual": "{count} dialogues visibles en même temps."
+    },
+    "nameless-controls": {
+      "title": "Contrôles interactifs sans nom accessible",
+      "actual": "{count} contrôle(s) sans nom."
+    },
+    "occluded-controls": {
+      "title": "Des contrôles visibles sont masqués par d'autres éléments",
+      "actual": "{count} contrôle(s) échouent au hit-test central."
+    },
+    "clipped-controls": {
+      "title": "Contrôles partiellement coupés par la fenêtre",
+      "actual": "{count} contrôle(s) partiellement hors de la zone visible."
+    },
+    "small-touch-targets": {
+      "title": "Zones tactiles plus petites que recommandé",
+      "actual": "{count} contrôle(s) plus petits que {touch}×{touch}px."
+    },
+    "insufficient-contrast": {
+      "title": "Texte visible sous le contraste AA des WCAG",
+      "actual": "{count} extrait(s) au contraste insuffisant."
+    },
+    "broken-images": {
+      "title": "Des images visibles n'ont pas chargé",
+      "actual": "{count} image(s) cassée(s)."
+    },
+    "unlabeled-fields": {
+      "title": "Champs sans nom accessible",
+      "actual": "{count} champ(s) sans libellé perceptible."
+    },
+    "heading-order-skip": {
+      "title": "L'ordre des titres saute des niveaux",
+      "actual": "Séquence observée : {seq}."
+    },
+    "missing-lang": {
+      "title": "Le document ne déclare pas sa langue",
+      "actual": "html[lang] est vide ; les lecteurs d'écran et la traduction automatique perdent leur repère."
+    },
+    "visible-aria-hidden": {
+      "title": "Des éléments aria-hidden restent visibles",
+      "actual": "{count} élément(s) masqués pour l'assistance restent à l'écran."
+    },
+    "text-overflow": {
+      "title": "Le texte visible est coupé",
+      "actual": "{count} extrait(s) débordent de leur conteneur."
+    },
+    "consent-wall": {
+      "title": "Le mur de cookies/consentement couvre le premier écran",
+      "actual": "{count} panneau(x) de consentement occupent l'écran."
+    },
+    "scroll-trap": {
+      "title": "La page semble piégée : du contenu dépasse l'écran mais le défilement est verrouillé",
+      "actual": "scrollHeight={scrollHeight}px avec overflow masqué."
+    },
+    "sticky-overlap": {
+      "title": "L'en-tête fixe couvre le premier titre",
+      "actual": "Le hit-test du titre atterrit sur la barre fixe/colante."
+    },
+    "fake-controls": {
+      "title": "Éléments cliquables sans rôle de contrôle",
+      "actual": "{count} élément(s) ressemblent à des boutons mais n'ont pas role/button/link."
+    },
+    "focus-not-visible": {
+      "title": "Contrôles sans anneau de focus visible",
+      "actual": "{count}/{total} contrôle(s) échantillonné(s) sans outline/box-shadow au focus."
+    },
+    "placeholder-as-label": {
+      "title": "Le placeholder sert de seul libellé",
+      "actual": "{count} champ(s) n'ont qu'un placeholder."
+    },
+    "error-not-associated": {
+      "title": "Le message d'erreur n'est pas associé au champ",
+      "actual": "{count} alerte(s) non reliée(s) via aria-describedby/errormessage."
+    },
+    "autofocus-abuse": {
+      "title": "Autofocus hors d'un champ utile",
+      "actual": "Focus initial sur {tag}#{id}."
+    },
+    "missing-autocomplete": {
+      "title": "Champs identité/mot de passe sans autocomplete",
+      "actual": "{count} champ(s) compliquent l'autocomplétion du navigateur."
+    },
+    "missing-tab-title": {
+      "title": "L'onglet n'a pas de titre",
+      "actual": "document.title est vide."
+    },
+    "missing-favicon": {
+      "title": "L'onglet n'a pas de favicon",
+      "actual": "Aucun link rel=icon trouvé."
+    },
+    "hover-only-content": {
+      "title": "L'information essentielle n'apparaît qu'au survol",
+      "actual": "{count} contrôle(s) dépendent de title/tooltip."
+    },
+    "hitbox-mismatch": {
+      "title": "La zone cliquable est bien plus grande que le contrôle dessiné",
+      "actual": "{count} cible(s) avec une hit-box gonflée."
+    },
+    "mixed-language": {
+      "title": "Le premier écran mélange les langues",
+      "actual": "Signaux portugais={ptHits} et anglais={enHits} dans le texte visible."
+    },
+    "empty-click-region": {
+      "title": "Zone cliquable énorme et presque vide",
+      "actual": "{count} région(s) occupent l'écran sans texte utile."
+    },
+    "modal-without-close": {
+      "title": "Dialogue visible sans contrôle de fermeture évident",
+      "actual": "{count} modale(s) sans bouton de fermeture."
+    },
+    "eternal-skeleton": {
+      "title": "Indicateur de chargement encore visible après la fin du document",
+      "actual": "{count} indicateur(s) de chargement restent présents après readyState=complete sans la sémantique de progression acceptée (aria-valuenow/plage valides, aria-valuemax par défaut à 100 et au moins 4 % de progression mesurable)."
+    },
+    "decorative-aria-hidden": {
+      "title": "Contenu décoratif aria-hidden dans un contrôle nommé (motif accepté)",
+      "actual": "{count} élément(s) décoratif(s) sont masqués pour les technologies d’assistance tandis que le contrôle parent fournit le nom accessible."
+    },
+    "screen-reader-only-clipping": {
+      "title": "Le texte réservé aux lecteurs d’écran utilise un découpage intentionnel (motif accepté)",
+      "actual": "{count} élément(s) correspondent à une technique standard sr-only/visually-hidden."
+    },
+    "complementary-tooltip": {
+      "title": "L’infobulle complète un nom accessible (motif accepté)",
+      "actual": "{count} contrôle(s) exposent un nom accessible sans dépendre de title/tooltip."
+    }
+  },
+  "browserErrors": "Erreurs navigateur",
+  "score": "Score",
+  "coverage": "Couverture",
+  "states": "États",
+  "urls": "URLs",
+  "selected": "Sélectionnés",
+  "skipped": "Ignorés",
+  "workers": "Travailleurs",
+  "duration": "Durée",
+  "severity": "Sévérité",
+  "finding": "Constat",
+  "expected": "Attendu",
+  "observed": "Observé",
+  "step": "Étape",
+  "noIssues": "Aucun problème confirmé",
+  "noData": "Aucune donnée",
+  "application": "Application",
+  "browser": "Navigateur",
+  "viewport": "Vue",
+  "locale": "Langue",
+  "timezone": "Fuseau",
+  "mode": "Mode",
+  "qualityGates": "Seuils de qualité",
+  "protocol": "Protocole",
+  "category": "Catégorie",
+  "status": "Statut",
+  "details": "Détails",
+  "violations": "Violations",
+  "console": "Console",
+  "pageErrors": "Erreurs de page",
+  "network": "Réseau",
+  "http": "HTTP",
+  "screenshot": "Capture",
+  "embedLimitNote": "{linked} capture(s) liée(s) aux fichiers à côté de ce rapport au lieu d’être intégrée(s) (report.embedLimit : {limit} Ko).",
+  "blocker": "Bloquant",
+  "critical": "Critique",
+  "major": "Élevé",
+  "minor": "Faible",
+  "tool": "Outil",
+  "runner": "Exécuteur",
+  "resultJson": "Résultat JSON",
+  "copyIssue": "Copier l'issue GitHub",
+  "findingsLabel": "Constats",
+  "stopReason": "Raison de l'arrêt",
+  "confidence": "Confiance",
+  "actionable": "Actionnable (élevé)",
+  "review": "Réviser (moy/faible)",
+  "high": "Élevée",
+  "medium": "Moyenne",
+  "low": "Faible",
+  "kind": "Type",
+  "new": "Nouveau",
+  "resolved": "Résolu",
+  "persistent": "Persistant",
+  "regression": "Régression vs base",
+  "scoreDelta": "Delta de score",
+  "scan": {
+    "title": "Titre : {text}",
+    "obviousAction": "Action évidente : {name}",
+    "fieldInView": "Champ en vue : {name}",
+    "competingCtas": "{count} appels à l'action se concurrencent sur le premier écran",
+    "fieldFallback": "champ"
+  },
+  "gaze": {
+    "reasonActions": "{count} action(s) visible(s) sur le premier écran",
+    "reasonFields": "{count} champ(s) exigent une attention immédiate",
+    "reasonTextWall": "Mur de texte : environ {count} mots au-dessus de la ligne de flottaison",
+    "reasonNoHeadline": "Aucun titre clair pour ancrer le regard",
+    "reasonNoPrimaryCta": "Plusieurs actions, aucune ne s'impose comme chemin évident",
+    "reasonCompetingCtas": "{count} appels à l'action se concurrencent",
+    "reasonNoLang": "Le document ne déclare pas la langue de la page",
+    "reasonPasswordNoHttps": "Champ mot de passe sur une page sans HTTPS",
+    "loadLight": "Léger",
+    "loadModerate": "Modéré",
+    "loadHeavy": "Lourd",
+    "loadOverwhelming": "Écrasant",
+    "narrativeHeadline": "À l'ouverture, le regard se pose sur « {headline} ».",
+    "narrativeNoHeadline": "Le premier écran n'offre aucun titre clair ; l'utilisateur doit scanner la page pour s'orienter.",
+    "narrativeCta": "Le chemin le plus évident est « {cta} ».",
+    "narrativeActions": "Il y a {count} contrôle(s) visible(s), mais aucun ne s'impose comme prochaine étape.",
+    "narrativeNoAction": "Aucune action évidente sur le premier écran.",
+    "narrativeCompeting": "En concurrence pour l'attention : {names}.",
+    "narrativeWords": "La lecture immédiate compte environ {count} mot(s).",
+    "narrativeLoad": "Charge cognitive : {label} ({score}/100).",
+    "narrativePasswordNoHttps": "Un champ mot de passe apparaît sans HTTPS — cela réduit la confiance.",
+    "purposeAuthenticate": "Se connecter ou déverrouiller l'accès",
+    "purposeRegister": "Créer le premier accès",
+    "purposeCheckout": "Terminer un paiement",
+    "purposeOverview": "Comprendre l'état actuel et choisir une destination",
+    "purposeConfigure": "Ajuster les préférences",
+    "purposeCompleteForm": "Remplir et envoyer le formulaire visible",
+    "purposeExplore": "Comprendre le produit et trouver la prochaine étape",
+    "goalFillFields": "Remplir les champs visibles sans deviner leur sens",
+    "goalChooseSafely": "Choisir la bonne action sans déclencher de chemin destructeur"
+  },
+  "plan": {
+    "read": "Lire « {headline} »",
+    "readWhy": "C'est l'ancre visuelle du premier écran.",
+    "scan": "Scanner le premier écran à la recherche d'un titre",
+    "scanWhy": "Sans titre clair, l'utilisateur doit improviser son orientation.",
+    "fill": "Remplir « {name} »",
+    "fillWhy": "Une saisie visible précède l'action principale.",
+    "fieldFallback": "le premier champ",
+    "auth": "Chercher identité et mot de passe",
+    "authWhy": "L'écran a été classé comme authentification.",
+    "confirm": "Confirmer ce que l'écran propose",
+    "confirmWhy": "Aucun champ évident pour l'instant ; l'utilisateur lit le reste de l'écran.",
+    "click": "Cliquer sur « {cta} »",
+    "clickWhy": "C'est l'appel à l'action au poids visuel le plus fort.",
+    "seek": "Chercher une voie à suivre",
+    "seekWhy": "Aucun CTA ne ressort ; le risque d'abandon augmente."
+  },
+  "misclick": {
+    "effectNavigation": "navigation inattendue",
+    "effectDialog": "le dialogue a changé",
+    "effectAlert": "l'alerte/toast a changé",
+    "effectHit": "a touché {name}",
+    "effectOutsideActivated": "la zone extérieure a activé la cible",
+    "effectVisual": "l'état visuel a changé",
+    "effectNone": "Aucune conséquence observable.",
+    "issueTitle": "Clic raté {point} autour de « {name} »",
+    "issueExpected": "Un clic hors de la cible ne doit pas déclencher de contrôles ni changer le flux.",
+    "controlFallback": "contrôle",
+    "destructiveSkip": "Voisin potentiellement destructeur ; clic non exécuté."
+  },
+  "issue": {
+    "visualPerceptionExpected": "L'interface rendue ne présente pas ce problème.",
+    "elementVisibleExpected": "Élément visible pour l'utilisateur.",
+    "elementVisiblePass": "L'élément est visible.",
+    "elementVisibleFail": "L'élément est absent ou invisible.",
+    "flowExpected": "Le parcours se termine sans exception d'automatisation ni erreur d'interface.",
+    "verificationExpected": "La vérification réussit.",
+    "verificationFailed": "La vérification a échoué.",
+    "axeExpected": "Aucune violation de la règle axe « {id} ».",
+    "axeAffected": "{count} élément(s) affecté(s).",
+    "firstImpression": "Première impression",
+    "contrastSiblingOverlayHint": "Cause racine possible : un élément frère positionné ({overlay}) est peint derrière {target}. axe n’utilise pas les overlays frères comme arrière-plan du texte ; il a mesuré {ancestor} ({background}). Donnez un background-color propre à l’élément contenant le texte ou vérifiez le contraste avec l’ancêtre mesuré."
+  },
+  "stepNames": {
+    "openTarget": "Ouvrir l'application cible",
+    "adaptiveExploration": "Exploration adaptative — {mode}",
+    "concurrentProtocols": "Protocoles concurrents — {mode}",
+    "codeQualityFloor": "Qualité du code et seuil final"
+  },
+  "gateLabels": {
+    "initialState": "État initial observé",
+    "browserTelemetry": "Télémétrie du navigateur active",
+    "stateDedup": "États dédupliqués par empreinte",
+    "responsive": "Audit responsive terminé",
+    "axePerState": "Accessibilité exécutée une fois par état unique",
+    "destructive": "Actions destructives bloquées ou explicitement autorisées",
+    "auth": "Authentification gérée explicitement",
+    "misclickSample": "Échantillon de clics accidentels basé sur le risque",
+    "firstImpression": "Première impression de l’utilisateur capturée",
+    "parallelProtocols": "Protocoles concurrents terminés sans échec",
+    "codeQuality": "Lint et structure du code",
+    "budgetCoverage": "Couverture du mode ≥ {target}%"
+  },
+  "weight": "Poids",
+  "opinions": "Heuristiques de perception (avis)",
+  "opinionsIntro": "Les motifs intentionnels reconnus sont consignés par transparence, mais ne sont pas traités comme des défauts ni des échecs CI.",
+  "acceptedPattern": "Motif accepté",
+  "noOpinions": "Aucune heuristique d'avis enregistrée."
+}

@@ -1,0 +1,23 @@
+{
+  "auth": ["entrar", "acessar", "desbloquear", "continuar"],
+  "authPage": ["entrar", "acessar", "desbloquear", "senha"],
+  "setupPage": ["cadastro", "registr", "criar conta", "primeiro acesso", "configur"],
+  "dangerous": [
+    "excluir",
+    "remover",
+    "apagar",
+    "sair",
+    "bloquear",
+    "comprar",
+    "pagar",
+    "pagamento",
+    "encerrar conta"
+  ],
+  "write": ["novo", "adicionar", "criar", "salvar", "editar", "enviar", "anexar", "publicar"],
+  "navigation": ["menu", "config", "perfil", "início", "painel", "voltar", "próximo", "aba"],
+  "utility": ["buscar", "pesquisa", "filtro", "copiar", "mostrar", "ocultar", "gerar", "fechar", "cancelar"],
+  "skipLink": ["pular", "conteúdo"],
+  "copy": ["copiar"],
+  "errorPage": ["erro", "falha", "não encontrado", "indisponível"],
+  "emptyPage": ["vazio", "sem dados", "nenhum item", "nenhum resultado"]
+}

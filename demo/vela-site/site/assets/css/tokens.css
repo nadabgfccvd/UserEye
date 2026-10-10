@@ -1,0 +1,219 @@
+/* Vela Analytics — tokens.css (part of the design system; load order matters: tokens → layout → components → pricing-blog → product-pages → responsive) */
+/* ==========================================================================
+   Vela Analytics — design system
+   Tokens, themes (light/dark), layout, components. No external dependencies.
+   ========================================================================== */
+
+/* ---------- Tokens: light theme (default) ---------- */
+:root {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --bg: #f6f8fb;
+  --bg-alt: #edf1f7;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --ink: #14212b;
+  --ink-2: #33454f;
+  --muted: #56666f;
+  --line: #dce4ed;
+  --line-strong: #c2cfdb;
+
+  --accent: #0e7a6e;
+  --accent-ink: #0b5d54;
+  --accent-soft: #ddf2ee;
+  --on-accent: #ffffff;
+
+  /* coral/amber darkened so small bold text clears WCAG AA 4.5:1 on
+     their soft backgrounds (verified: 5.2–5.8:1) */
+  --coral: #a8431a;
+  --coral-soft: #fdeade;
+  --blue: #1d5fc2;
+  --blue-soft: #e2edfb;
+  --amber: #7f5300;
+  --amber-soft: #fbeed2;
+
+  --series-1: #0e7a6e;
+  --series-2: #c8511f;
+  --series-3: #1d5fc2;
+
+  --focus: #0e7a6e;
+  --ring-soft: rgba(14, 122, 110, 0.18);
+
+  --shadow-sm: 0 1px 2px rgba(20, 33, 43, 0.06), 0 1px 3px rgba(20, 33, 43, 0.08);
+  --shadow-md: 0 4px 10px rgba(20, 33, 43, 0.07), 0 2px 4px rgba(20, 33, 43, 0.06);
+  --shadow-lg: 0 18px 40px rgba(20, 33, 43, 0.12), 0 6px 14px rgba(20, 33, 43, 0.08);
+
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --header-h: 68px;
+  --container: 1160px;
+
+  --grad-hero: linear-gradient(100deg, #0e7a6e 0%, #1d5fc2 55%, #7a3fb8 100%);
+}
+
+/* ---------- Tokens: dark theme ---------- */
+html[data-theme='dark'] {
+  --bg: #0b131d;
+  --bg-alt: #0e1826;
+  --surface: #121e2c;
+  --surface-2: #182636;
+  --ink: #e9eff5;
+  --ink-2: #c6d3de;
+  --muted: #97a8b6;
+  --line: #223243;
+  --line-strong: #33485c;
+
+  --accent: #4fd8c3;
+  --accent-ink: #86e8d9;
+  --accent-soft: #10312c;
+  --on-accent: #06231f;
+
+  --coral: #ff8a5c;
+  --coral-soft: #33201a;
+  --blue: #7cb3ff;
+  --blue-soft: #16283f;
+  --amber: #e8b64c;
+  --amber-soft: #302513;
+
+  --series-1: #4fd8c3;
+  --series-2: #ff8a5c;
+  --series-3: #7cb3ff;
+
+  --focus: #4fd8c3;
+  --ring-soft: rgba(79, 216, 195, 0.22);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.55);
+
+  --grad-hero: linear-gradient(100deg, #4fd8c3 0%, #7cb3ff 55%, #c79bf0 100%);
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* The `hidden` attribute must win over component `display` rules
+   (modal backdrop uses display:grid, cookie banner display:flex, cards
+   display:flex — without this, [hidden] elements would still render). */
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 500px at 85% -100px, var(--ring-soft), transparent 60%),
+    var(--bg);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin: 0 0 0.5em;
+}
+
+h1 {
+  font-size: clamp(2.3rem, 4.6vw, 3.7rem);
+}
+h2 {
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+}
+h3 {
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+}
+
+p {
+  margin: 0 0 1em;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--accent-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a:hover {
+  color: var(--accent);
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+/* Screen-reader-only, without the 1px-clip trick: keeps natural size
+   (no overflow/nowrap clipping) and hides via clip-path instead. */
+.visually-hidden {
+  position: absolute !important;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  clip-path: inset(50%);
+  pointer-events: none;
+}
+
+/* Skip link: zero-height + clip-path until focused (keyboard-reachable,
+   announced by screen readers, invisible to pointer hit-tests). */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 16px;
+  z-index: 200;
+  height: 0;
+  padding: 0;
+  border: 0;
+  clip-path: inset(50%);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip-link:focus {
+  height: auto;
+  padding: 10px 16px;
+  border: 1px solid var(--line-strong);
+  clip-path: none;
+  top: 12px;
+  box-shadow: var(--shadow-md);
+}
+

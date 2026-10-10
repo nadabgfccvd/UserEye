@@ -1,0 +1,872 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://usereye.dev/schema/usereye.config.json",
+  "title": "UserEye configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "projectDir": {
+      "type": "string",
+      "default": "."
+    },
+    "command": {
+      "default": null
+    },
+    "install": {
+      "type": "boolean",
+      "default": false
+    },
+    "mode": {
+      "type": "string",
+      "default": "standard",
+      "enum": ["quick", "standard", "deep"]
+    },
+    "reviewMode": {
+      "type": "string",
+      "default": "normal",
+      "enum": ["normal", "perf-seo", "flows", "a11y-strict"]
+    },
+    "headed": {
+      "type": "boolean",
+      "default": false
+    },
+    "workers": {
+      "type": "number",
+      "default": 0
+    },
+    "outDir": {
+      "type": "string",
+      "default": "artifacts/usereye"
+    },
+    "keepArtifacts": {
+      "type": "boolean",
+      "default": false
+    },
+    "keepLast": {
+      "type": "number",
+      "default": 0
+    },
+    "failOn": {
+      "enum": ["never", "minor", "major", "critical", "blocker"],
+      "default": null
+    },
+    "locale": {
+      "type": "string",
+      "default": "en-US"
+    },
+    "timezoneId": {
+      "type": "string",
+      "default": "UTC"
+    },
+    "colorScheme": {
+      "type": "string",
+      "default": "light"
+    },
+    "viewport": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "number",
+          "default": 1440
+        },
+        "height": {
+          "type": "number",
+          "default": 900
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    "recordVideo": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "const": "on-failure"
+        }
+      ],
+      "default": "on-failure"
+    },
+    "trace": {
+      "type": "string",
+      "default": "on-failure",
+      "enum": ["on-failure", "always", "never"]
+    },
+    "ignoreHTTPSErrors": {
+      "type": "boolean",
+      "default": false
+    },
+    "credentials": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "default": {}
+    },
+    "storageState": {
+      "default": null
+    },
+    "auth": {
+      "type": "object",
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "default": "form"
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "strategy": "form"
+      }
+    },
+    "allowWrite": {
+      "type": "boolean",
+      "default": false
+    },
+    "allowDestructive": {
+      "type": "boolean",
+      "default": false
+    },
+    "allowDownloads": {
+      "type": "boolean",
+      "default": false
+    },
+    "blockPaths": {
+      "type": "array",
+      "default": []
+    },
+    "blockNamePatterns": {
+      "type": "array",
+      "default": []
+    },
+    "seedPaths": {
+      "type": "array",
+      "default": []
+    },
+    "ignoreQueryParams": {
+      "type": "boolean",
+      "default": true
+    },
+    "patternPack": {
+      "type": "array",
+      "default": ["en"]
+    },
+    "patterns": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "default": {}
+    },
+    "hints": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "default": {}
+    },
+    "protocols": {
+      "type": "string",
+      "default": "auto"
+    },
+    "browser": {
+      "type": "string",
+      "default": "chromium",
+      "enum": ["chromium", "firefox", "webkit"]
+    },
+    "retries": {
+      "type": "number",
+      "default": 1
+    },
+    "retryBackoffMs": {
+      "type": "number",
+      "default": 400
+    },
+    "navigationTimeoutMs": {
+      "type": "number",
+      "default": 15000
+    },
+    "dialogTimeoutMs": {
+      "type": "number",
+      "default": 5000
+    },
+    "minActionDelayMs": {
+      "type": "number",
+      "default": 0
+    },
+    "protocolTimeoutMs": {
+      "type": "number",
+      "default": 15000
+    },
+    "startupTimeoutMs": {
+      "type": "number",
+      "default": 30000
+    },
+    "axe": {
+      "type": "boolean",
+      "default": true
+    },
+    "codeQuality": {
+      "type": "boolean",
+      "default": true
+    },
+    "codeQualityTimeoutMs": {
+      "type": "number",
+      "default": 120000
+    },
+    "codeExecution": {
+      "type": "object",
+      "properties": {
+        "npmScripts": {
+          "type": "boolean",
+          "default": false
+        },
+        "binaries": {
+          "type": "boolean",
+          "default": false
+        },
+        "install": {
+          "type": "boolean",
+          "default": false
+        },
+        "start": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "npmScripts": false,
+        "binaries": false,
+        "install": false,
+        "start": true
+      }
+    },
+    "reportLocale": {
+      "type": "string",
+      "default": "en",
+      "enum": ["en", "pt", "pt-BR", "es", "fr", "auto"]
+    },
+    "reportFormat": {
+      "type": "array",
+      "default": ["html", "md"]
+    },
+    "sarif": {
+      "type": "object",
+      "properties": {
+        "minConfidence": {
+          "type": "string",
+          "default": "medium"
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "minConfidence": "medium"
+      }
+    },
+    "report": {
+      "type": "object",
+      "properties": {
+        "embedLimit": {
+          "type": "number",
+          "default": 204800
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "embedLimit": 204800
+      }
+    },
+    "findings": {
+      "type": "object",
+      "properties": {
+        "minConfidence": {
+          "type": "string",
+          "default": "medium"
+        },
+        "gateConfidence": {
+          "type": "string",
+          "default": "high"
+        },
+        "suppress": {
+          "type": "array",
+          "default": []
+        },
+        "elevate": {
+          "type": "array",
+          "default": []
+        },
+        "treatAsSignal": {
+          "type": "array",
+          "default": []
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "minConfidence": "medium",
+        "gateConfidence": "high",
+        "suppress": [],
+        "elevate": [],
+        "treatAsSignal": []
+      }
+    },
+    "gates": {
+      "type": "object",
+      "properties": {
+        "minAdaptiveScore": {
+          "type": "number",
+          "default": 70
+        },
+        "maxBlocker": {
+          "type": "number",
+          "default": 0
+        },
+        "maxCritical": {
+          "type": "number",
+          "default": 0
+        },
+        "maxUnexpectedBrowserErrors": {
+          "type": "number",
+          "default": 0
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "minAdaptiveScore": 70,
+        "maxBlocker": 0,
+        "maxCritical": 0,
+        "maxUnexpectedBrowserErrors": 0
+      }
+    },
+    "misclick": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "type": "string",
+          "default": "stable-only"
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "policy": "stable-only"
+      }
+    },
+    "userJourney": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "resilience": {
+          "type": "object",
+          "properties": {
+            "backgroundTab": {
+              "type": "boolean",
+              "default": true
+            },
+            "unsavedClose": {
+              "type": "boolean",
+              "default": true
+            },
+            "passwordRecovery": {
+              "type": "boolean",
+              "default": true
+            },
+            "lockout": {
+              "type": "boolean",
+              "default": false
+            },
+            "languageSwitch": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "additionalProperties": false,
+          "default": {
+            "backgroundTab": true,
+            "unsavedClose": true,
+            "passwordRecovery": true,
+            "lockout": false,
+            "languageSwitch": true
+          }
+        },
+        "a11y": {
+          "type": "object",
+          "properties": {
+            "permissions": {
+              "type": "boolean",
+              "default": true
+            },
+            "fastScroll": {
+              "type": "boolean",
+              "default": true
+            },
+            "keyboardShortcuts": {
+              "type": "boolean",
+              "default": true
+            },
+            "mobileLayout": {
+              "type": "boolean",
+              "default": true
+            },
+            "rightClick": {
+              "type": "boolean",
+              "default": true
+            },
+            "deadLinks": {
+              "type": "boolean",
+              "default": true
+            },
+            "textResize": {
+              "type": "boolean",
+              "default": true
+            },
+            "highContrast": {
+              "type": "boolean",
+              "default": true
+            },
+            "colorblind": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "additionalProperties": false,
+          "default": {
+            "permissions": true,
+            "fastScroll": true,
+            "keyboardShortcuts": true,
+            "mobileLayout": true,
+            "rightClick": true,
+            "deadLinks": true,
+            "textResize": true,
+            "highContrast": true,
+            "colorblind": true
+          }
+        },
+        "lockoutAttempts": {
+          "type": "number",
+          "default": 1
+        },
+        "tempMail": {
+          "default": null
+        },
+        "hasLogin": {
+          "default": null
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "enabled": false,
+        "resilience": {
+          "backgroundTab": true,
+          "unsavedClose": true,
+          "passwordRecovery": true,
+          "lockout": false,
+          "languageSwitch": true
+        },
+        "a11y": {
+          "permissions": true,
+          "fastScroll": true,
+          "keyboardShortcuts": true,
+          "mobileLayout": true,
+          "rightClick": true,
+          "deadLinks": true,
+          "textResize": true,
+          "highContrast": true,
+          "colorblind": true
+        },
+        "lockoutAttempts": 1,
+        "tempMail": null,
+        "hasLogin": null
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "categories": {
+          "type": "object",
+          "properties": {
+            "adBlocker": {
+              "type": "boolean",
+              "default": true
+            },
+            "darkReader": {
+              "type": "boolean",
+              "default": true
+            },
+            "passwordManager": {
+              "type": "boolean",
+              "default": true
+            },
+            "translator": {
+              "type": "boolean",
+              "default": true
+            },
+            "couponHelper": {
+              "type": "boolean",
+              "default": true
+            },
+            "fullPageCapture": {
+              "type": "boolean",
+              "default": true
+            },
+            "reactDevtools": {
+              "type": "boolean",
+              "default": true
+            },
+            "volumeBooster": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "additionalProperties": false,
+          "default": {
+            "adBlocker": true,
+            "darkReader": true,
+            "passwordManager": true,
+            "translator": true,
+            "couponHelper": true,
+            "fullPageCapture": true,
+            "reactDevtools": true,
+            "volumeBooster": true
+          }
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "enabled": false,
+        "categories": {
+          "adBlocker": true,
+          "darkReader": true,
+          "passwordManager": true,
+          "translator": true,
+          "couponHelper": true,
+          "fullPageCapture": true,
+          "reactDevtools": true,
+          "volumeBooster": true
+        }
+      }
+    },
+    "allowedHosts": {
+      "type": "array",
+      "default": []
+    },
+    "respectRobots": {
+      "type": "boolean",
+      "default": false
+    },
+    "hooks": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "default": {}
+    },
+    "plugins": {
+      "type": "array",
+      "default": []
+    },
+    "profiles": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "default": {}
+    },
+    "dryRun": {
+      "type": "boolean",
+      "default": false
+    },
+    "logLevel": {
+      "type": "string",
+      "default": "info",
+      "enum": ["error", "warn", "info", "debug", "trace"]
+    },
+    "logJson": {
+      "type": "boolean",
+      "default": false
+    },
+    "timings": {
+      "type": "boolean",
+      "default": false
+    },
+    "performanceSeo": {
+      "type": "object",
+      "properties": {
+        "engine": {
+          "type": "string",
+          "default": "native"
+        },
+        "urls": {
+          "type": "array",
+          "default": []
+        },
+        "formFactor": {
+          "type": "string",
+          "default": "mobile"
+        },
+        "runs": {
+          "type": "number",
+          "default": 1
+        },
+        "aggregation": {
+          "type": "string",
+          "default": "median"
+        },
+        "budgets": {
+          "type": "object",
+          "properties": {
+            "lcpMs": {
+              "type": "number",
+              "default": 2500
+            },
+            "inpMs": {
+              "type": "number",
+              "default": 200
+            },
+            "cls": {
+              "type": "number",
+              "default": 0.1
+            },
+            "totalByteWeightKb": {
+              "type": "number",
+              "default": 1600
+            },
+            "scriptKb": {
+              "type": "number",
+              "default": 350
+            },
+            "imageKb": {
+              "type": "number",
+              "default": 900
+            },
+            "seoScore": {
+              "type": "number",
+              "default": 0.9
+            }
+          },
+          "additionalProperties": false,
+          "default": {
+            "lcpMs": 2500,
+            "inpMs": 200,
+            "cls": 0.1,
+            "totalByteWeightKb": 1600,
+            "scriptKb": 350,
+            "imageKb": 900,
+            "seoScore": 0.9
+          }
+        },
+        "seo": {
+          "type": "object",
+          "properties": {
+            "checkRobotsTxt": {
+              "type": "boolean",
+              "default": true
+            },
+            "checkSitemap": {
+              "type": "boolean",
+              "default": false
+            },
+            "requireCanonical": {
+              "type": "boolean",
+              "default": false
+            },
+            "requireMetaDescription": {
+              "type": "boolean",
+              "default": true
+            },
+            "requireDescriptiveLinks": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "additionalProperties": false,
+          "default": {
+            "checkRobotsTxt": true,
+            "checkSitemap": false,
+            "requireCanonical": false,
+            "requireMetaDescription": true,
+            "requireDescriptiveLinks": true
+          }
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "engine": "native",
+        "urls": [],
+        "formFactor": "mobile",
+        "runs": 1,
+        "aggregation": "median",
+        "budgets": {
+          "lcpMs": 2500,
+          "inpMs": 200,
+          "cls": 0.1,
+          "totalByteWeightKb": 1600,
+          "scriptKb": 350,
+          "imageKb": 900,
+          "seoScore": 0.9
+        },
+        "seo": {
+          "checkRobotsTxt": true,
+          "checkSitemap": false,
+          "requireCanonical": false,
+          "requireMetaDescription": true,
+          "requireDescriptiveLinks": true
+        }
+      }
+    },
+    "flows": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "array",
+          "default": []
+        },
+        "projects": {
+          "type": "array",
+          "default": ["chromium"]
+        },
+        "timeoutMs": {
+          "type": "number",
+          "default": 30000
+        },
+        "retries": {
+          "type": "number",
+          "default": 0
+        },
+        "trace": {
+          "type": "string",
+          "default": "on-failure"
+        },
+        "video": {
+          "type": "string",
+          "default": "on-failure"
+        },
+        "failOnConsoleError": {
+          "type": "boolean",
+          "default": true
+        },
+        "runAxeAfterSteps": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "files": [],
+        "projects": ["chromium"],
+        "timeoutMs": 30000,
+        "retries": 0,
+        "trace": "on-failure",
+        "video": "on-failure",
+        "failOnConsoleError": true,
+        "runAxeAfterSteps": false
+      }
+    },
+    "accessibilityStrict": {
+      "type": "object",
+      "properties": {
+        "standard": {
+          "type": "string",
+          "default": "WCAG2AA"
+        },
+        "axe": {
+          "type": "object",
+          "properties": {
+            "runOnly": {
+              "type": "array",
+              "default": ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"]
+            },
+            "resultTypes": {
+              "type": "array",
+              "default": ["violations", "incomplete", "passes"]
+            }
+          },
+          "additionalProperties": false,
+          "default": {
+            "runOnly": ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"],
+            "resultTypes": ["violations", "incomplete", "passes"]
+          }
+        },
+        "incomplete": {
+          "type": "string",
+          "default": "needs-review"
+        },
+        "pa11y": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false
+            },
+            "runners": {
+              "type": "array",
+              "default": ["axe", "htmlcs"]
+            },
+            "includeWarnings": {
+              "type": "boolean",
+              "default": true
+            },
+            "includeNotices": {
+              "type": "boolean",
+              "default": false
+            },
+            "threshold": {
+              "type": "number",
+              "default": 0
+            }
+          },
+          "additionalProperties": false,
+          "default": {
+            "enabled": false,
+            "runners": ["axe", "htmlcs"],
+            "includeWarnings": true,
+            "includeNotices": false,
+            "threshold": 0
+          }
+        },
+        "baseline": {
+          "default": null
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "standard": "WCAG2AA",
+        "axe": {
+          "runOnly": ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"],
+          "resultTypes": ["violations", "incomplete", "passes"]
+        },
+        "incomplete": "needs-review",
+        "pa11y": {
+          "enabled": false,
+          "runners": ["axe", "htmlcs"],
+          "includeWarnings": true,
+          "includeNotices": false,
+          "threshold": 0
+        },
+        "baseline": null
+      }
+    },
+    "appDir": {},
+    "apps": {},
+    "baseURL": {},
+    "url": {},
+    "compareWith": {},
+    "configFile": {},
+    "consent": {},
+    "consentSelectors": {},
+    "diveIntoIframes": {},
+    "env": {},
+    "ignoreHash": {},
+    "maxWallClockMs": {},
+    "profile": {},
+    "ready": {},
+    "strictConfig": {},
+    "updateCheck": {},
+    "zoomMode": {}
+  }
+}

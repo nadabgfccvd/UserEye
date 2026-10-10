@@ -1,0 +1,360 @@
+{
+  "language": "pt-BR",
+  "report": "Relatório UserEye",
+  "run": "Execução",
+  "statusPassed": "APROVADO",
+  "statusFailed": "REPROVADO",
+  "summary": "Resumo",
+  "scope": "Escopo e ambiente",
+  "adaptive": "Exploração adaptativa",
+  "protocols": "Protocolos simultâneos",
+  "codeQuality": "Qualidade do código",
+  "issues": "Achados priorizados",
+  "journey": "Jornada executada",
+  "perception": "Percepção visual",
+  "patience": {
+    "moodCalm": "Tranquilo",
+    "moodCalmDesc": "A experiência responde de forma previsível e transmite controle.",
+    "moodAttentive": "Atento",
+    "moodAttentiveDesc": "Pequenos atritos foram percebidos, mas o usuário ainda confia no fluxo.",
+    "moodImpatient": "Impaciente",
+    "moodImpatientDesc": "Demoras ou falhas começam a exigir esforço e repetição.",
+    "moodFrustrated": "Frustrado",
+    "moodFrustratedDesc": "A experiência apresenta atrito suficiente para gerar desistência parcial.",
+    "moodAbandonment": "Risco de abandono",
+    "moodAbandonmentDesc": "O usuário provavelmente encerra o fluxo ou procura outra solução.",
+    "controlFallback": "controle",
+    "noFeedback": "Ação sem confirmação visual detectável",
+    "feedback3000": "Primeiro feedback somente após {ms} ms",
+    "feedback1000": "Primeiro feedback após {ms} ms",
+    "feedback300": "Feedback perceptível demorou {ms} ms",
+    "feedback100": "Feedback não foi instantâneo ({ms} ms)",
+    "settle": "Ação levou {ms} ms para estabilizar",
+    "waitNoLoader": "Espera de {ms} ms sem indicador de carregamento",
+    "loaderLate": "Indicador de carregamento apareceu tarde ({ms} ms)",
+    "rageClicks": "Três cliques rápidos sem resposta clara em “{name}”",
+    "httpError": "HTTP {status}",
+    "httpErrorFallback": "erro",
+    "misclickHarmful": "causou efeito",
+    "misclickConfusing": "teve resultado confuso",
+    "misclickPenalty": "Clique acidental {adjective}: {effect}",
+    "disclaimer": "Heurística de UX baseada em latência, feedback, carregamento, erros e cliques acidentais; não mede emoções reais de uma pessoa."
+  },
+  "patienceLabel": "Paciência",
+  "accessibility": "Acessibilidade",
+  "telemetry": "Telemetria do navegador",
+  "artifacts": "Artefatos reproduzíveis",
+  "evidence": "Evidências visuais",
+  "steps": "Etapas",
+  "passed": "Aprovadas",
+  "failed": "Falhas",
+  "warnings": "Alertas",
+  "checks": "Verificações",
+  "interactions": "Interações",
+  "observations": "Observações",
+  "findings": {
+    "visible-hidden-elements": {
+      "title": "Elementos marcados hidden estão visíveis",
+      "actual": "{count} elemento(s) com hidden continuam renderizados."
+    },
+    "horizontal-overflow": {
+      "title": "A página possui rolagem horizontal inesperada",
+      "actual": "{px} px além da largura do viewport."
+    },
+    "duplicate-ids": {
+      "title": "IDs duplicados podem quebrar labels e controles",
+      "actual": "{count} ID(s) duplicado(s)."
+    },
+    "multiple-visible-dialogs": {
+      "title": "Mais de um diálogo está visível",
+      "actual": "{count} diálogos visíveis simultaneamente."
+    },
+    "nameless-controls": {
+      "title": "Controles interativos sem nome acessível",
+      "actual": "{count} controle(s) sem nome."
+    },
+    "occluded-controls": {
+      "title": "Controles visíveis estão bloqueados por outros elementos",
+      "actual": "{count} controle(s) falham no hit-test central."
+    },
+    "clipped-controls": {
+      "title": "Controles parcialmente cortados pelo viewport",
+      "actual": "{count} controle(s) parcialmente fora da área visível."
+    },
+    "small-touch-targets": {
+      "title": "Alvos de toque menores que o recomendado",
+      "actual": "{count} controle(s) menores que {touch}×{touch}px."
+    },
+    "insufficient-contrast": {
+      "title": "Texto visível abaixo do contraste WCAG AA",
+      "actual": "{count} trecho(s) com contraste insuficiente."
+    },
+    "broken-images": {
+      "title": "Imagens visíveis falharam ao carregar",
+      "actual": "{count} imagem(ns) quebrada(s)."
+    },
+    "unlabeled-fields": {
+      "title": "Campos sem nome acessível",
+      "actual": "{count} campo(s) sem rótulo perceptível."
+    },
+    "heading-order-skip": {
+      "title": "A ordem dos títulos pula níveis",
+      "actual": "Sequência observada: {seq}."
+    },
+    "missing-lang": {
+      "title": "O documento não declara o idioma",
+      "actual": "html[lang] está vazio; leitores de tela e tradução automática ficam sem âncora."
+    },
+    "visible-aria-hidden": {
+      "title": "Elementos aria-hidden continuam visíveis",
+      "actual": "{count} elemento(s) ocultos para leitores de tela ainda ocupam a tela."
+    },
+    "text-overflow": {
+      "title": "Texto visível está cortado",
+      "actual": "{count} trecho(s) transbordam o próprio container."
+    },
+    "consent-wall": {
+      "title": "Muro de cookies/consentimento cobre a primeira dobra",
+      "actual": "{count} painel(is) de consentimento ocupam a tela."
+    },
+    "scroll-trap": {
+      "title": "A página parece presa: há conteúdo além da dobra, mas o overflow está bloqueado",
+      "actual": "scrollHeight={scrollHeight}px com overflow hidden."
+    },
+    "sticky-overlap": {
+      "title": "Cabeçalho fixo cobre o primeiro título",
+      "actual": "O hit-test do heading cai no sticky/fixed."
+    },
+    "fake-controls": {
+      "title": "Elementos clicáveis sem papel de controle",
+      "actual": "{count} elemento(s) parecem botão, mas não têm role/button/link."
+    },
+    "focus-not-visible": {
+      "title": "Controles sem anel de foco visível",
+      "actual": "{count}/{total} amostra(s) sem outline/box-shadow no foco."
+    },
+    "placeholder-as-label": {
+      "title": "Placeholder usado como único rótulo",
+      "actual": "{count} campo(s) só têm placeholder."
+    },
+    "error-not-associated": {
+      "title": "Mensagem de erro sem associação ao campo",
+      "actual": "{count} alerta(s) não ligados por aria-describedby/errormessage."
+    },
+    "autofocus-abuse": {
+      "title": "Autofoco fora de um campo útil",
+      "actual": "Foco inicial em {tag}#{id}."
+    },
+    "missing-autocomplete": {
+      "title": "Campos de identidade/senha sem autocomplete",
+      "actual": "{count} campo(s) dificultam o preenchimento do navegador."
+    },
+    "missing-tab-title": {
+      "title": "A aba não tem título",
+      "actual": "document.title está vazio."
+    },
+    "missing-favicon": {
+      "title": "A aba não tem favicon",
+      "actual": "Nenhum link rel=icon encontrado."
+    },
+    "hover-only-content": {
+      "title": "Informação essencial só aparece no hover",
+      "actual": "{count} controle(s) dependem de title/tooltip."
+    },
+    "hitbox-mismatch": {
+      "title": "A área clicável é bem maior que o desenho do controle",
+      "actual": "{count} alvo(s) com hit-box inflado."
+    },
+    "mixed-language": {
+      "title": "A primeira dobra mistura idiomas",
+      "actual": "Sinais de português={ptHits} e inglês={enHits} no texto visível."
+    },
+    "empty-click-region": {
+      "title": "Zona clicável enorme e quase vazia",
+      "actual": "{count} região(ões) ocupam a dobra sem texto útil."
+    },
+    "modal-without-close": {
+      "title": "Diálogo visível sem controle óbvio de fechar",
+      "actual": "{count} modal(is) sem botão close/fechar."
+    },
+    "eternal-skeleton": {
+      "title": "Indicador de carregamento ainda visível após o documento completar",
+      "actual": "{count} indicador(es) de carregamento permanecem após readyState=complete sem a semântica de progresso aceita (aria-valuenow/faixa válidos, aria-valuemax padrão 100 e ao menos 4% de progresso mensurável)."
+    },
+    "decorative-aria-hidden": {
+      "title": "Conteúdo decorativo aria-hidden em controle nomeado (padrão aceito)",
+      "actual": "{count} elemento(s) decorativo(s) estão ocultos para tecnologia assistiva enquanto o controle-pai fornece o nome acessível."
+    },
+    "screen-reader-only-clipping": {
+      "title": "Texto exclusivo para leitor de tela usa recorte intencional (padrão aceito)",
+      "actual": "{count} elemento(s) correspondem a uma técnica padrão sr-only/visually-hidden."
+    },
+    "complementary-tooltip": {
+      "title": "Tooltip complementa um nome acessível (padrão aceito)",
+      "actual": "{count} controle(s) expõem nome acessível sem depender de title/tooltip."
+    }
+  },
+  "browserErrors": "Erros inesperados do navegador",
+  "score": "Pontuação",
+  "coverage": "Cobertura",
+  "states": "Estados únicos",
+  "urls": "URLs únicas",
+  "selected": "Selecionados",
+  "skipped": "Ignorados",
+  "workers": "Workers",
+  "duration": "Duração",
+  "severity": "Severidade",
+  "finding": "Achado",
+  "expected": "Esperado",
+  "observed": "Observado",
+  "step": "Etapa",
+  "noIssues": "Nenhum achado confirmado.",
+  "noData": "Nenhum dado registrado.",
+  "application": "Aplicação",
+  "browser": "Navegador",
+  "viewport": "Viewport",
+  "locale": "Locale",
+  "timezone": "Fuso horário",
+  "mode": "Modo",
+  "qualityGates": "Critérios de qualidade",
+  "protocol": "Protocolo",
+  "category": "Categoria",
+  "status": "Status",
+  "details": "Detalhes",
+  "violations": "Violações",
+  "console": "Erros de console",
+  "pageErrors": "Erros de página",
+  "network": "Falhas de rede",
+  "http": "Erros HTTP",
+  "screenshot": "Captura",
+  "embedLimitNote": "{linked} captura(s) vinculada(s) aos arquivos ao lado deste relatório em vez de embutidas (report.embedLimit: {limit} KB).",
+  "blocker": "Bloqueador",
+  "critical": "Crítico",
+  "major": "Alto",
+  "minor": "Baixo",
+  "tool": "Ferramenta",
+  "runner": "Runner",
+  "resultJson": "Resultado JSON",
+  "copyIssue": "Copiar issue do GitHub",
+  "findingsLabel": "Achados",
+  "stopReason": "Motivo da parada",
+  "confidence": "Confiança",
+  "actionable": "Acionável (alta)",
+  "review": "Revisar (méd/baixa)",
+  "high": "Alta",
+  "medium": "Média",
+  "low": "Baixa",
+  "kind": "Tipo",
+  "new": "Novo",
+  "resolved": "Resolvido",
+  "persistent": "Persistente",
+  "regression": "Regressão vs linha de base",
+  "scoreDelta": "Delta da pontuação",
+  "scan": {
+    "title": "Título: {text}",
+    "obviousAction": "Ação óbvia: {name}",
+    "fieldInView": "Campo à vista: {name}",
+    "competingCtas": "{count} chamadas à ação competem na primeira dobra",
+    "fieldFallback": "entrada"
+  },
+  "gaze": {
+    "reasonActions": "{count} ações visíveis na primeira dobra",
+    "reasonFields": "{count} campos pedem atenção imediata",
+    "reasonTextWall": "Parede de texto: cerca de {count} palavras acima da dobra",
+    "reasonNoHeadline": "Não há um título claro para ancorar o olhar",
+    "reasonNoPrimaryCta": "Várias ações, nenhuma se destaca como caminho óbvio",
+    "reasonCompetingCtas": "{count} chamadas à ação competem entre si",
+    "reasonNoLang": "O documento não declara o idioma da página",
+    "reasonPasswordNoHttps": "Campo de senha em página sem HTTPS",
+    "loadLight": "Leve",
+    "loadModerate": "Moderada",
+    "loadHeavy": "Alta",
+    "loadOverwhelming": "Saturada",
+    "narrativeHeadline": "Ao abrir, o olhar cai em “{headline}”.",
+    "narrativeNoHeadline": "A primeira tela não oferece um título claro; o usuário precisa vasculhar a dobra para se orientar.",
+    "narrativeCta": "O caminho mais óbvio é “{cta}”.",
+    "narrativeActions": "Há {count} controle(s) visível(is), mas nenhum se impõe como próximo passo.",
+    "narrativeNoAction": "Não há uma ação evidente na primeira dobra.",
+    "narrativeCompeting": "Competem pela atenção: {names}.",
+    "narrativeWords": "A leitura imediata tem cerca de {count} palavra(s).",
+    "narrativeLoad": "Carga cognitiva: {label} ({score}/100).",
+    "narrativePasswordNoHttps": "Um campo de senha aparece sem HTTPS — isso reduz confiança.",
+    "purposeAuthenticate": "Entrar ou desbloquear o acesso",
+    "purposeRegister": "Criar o primeiro acesso",
+    "purposeCheckout": "Concluir um pagamento",
+    "purposeOverview": "Entender o estado atual e escolher um destino",
+    "purposeConfigure": "Ajustar preferências",
+    "purposeCompleteForm": "Preencher e enviar o formulário visível",
+    "purposeExplore": "Entender o produto e encontrar o próximo passo",
+    "goalFillFields": "Preencher os campos visíveis sem adivinhar o significado",
+    "goalChooseSafely": "Escolher a ação certa sem acionar um caminho destrutivo"
+  },
+  "plan": {
+    "read": "Ler “{headline}”",
+    "readWhy": "É a âncora visual da primeira dobra.",
+    "scan": "Vasculhar a primeira dobra em busca de um título",
+    "scanWhy": "Sem heading claro, o usuário precisa improvisar a orientação.",
+    "fill": "Preencher “{name}”",
+    "fillWhy": "Há entrada visível antes da ação principal.",
+    "fieldFallback": "o primeiro campo",
+    "auth": "Procurar identidade e senha",
+    "authWhy": "A tela foi classificada como autenticação.",
+    "confirm": "Confirmar o que a tela oferece",
+    "confirmWhy": "Ainda não há um campo óbvio; o usuário lê o restante da dobra.",
+    "click": "Clicar em “{cta}”",
+    "clickWhy": "É a chamada à ação com maior peso visual.",
+    "seek": "Procurar um caminho para avançar",
+    "seekWhy": "Nenhuma CTA se destaca; risco de abandono sobe."
+  },
+  "misclick": {
+    "effectNavigation": "navegação inesperada",
+    "effectDialog": "diálogo alterado",
+    "effectAlert": "alerta/toast alterado",
+    "effectHit": "atingiu {name}",
+    "effectOutsideActivated": "a área externa ainda ativou o alvo",
+    "effectVisual": "estado visual mudou",
+    "effectNone": "Nenhuma consequência observável.",
+    "issueTitle": "Clique acidental {point} em torno de “{name}”",
+    "issueExpected": "Um clique fora do alvo não deve acionar controles nem mudar o fluxo.",
+    "controlFallback": "controle",
+    "destructiveSkip": "Vizinho potencialmente destrutivo; clique não executado."
+  },
+  "issue": {
+    "visualPerceptionExpected": "A interface renderizada não apresenta este problema.",
+    "elementVisibleExpected": "Elemento visível para o usuário.",
+    "elementVisiblePass": "Elemento está visível.",
+    "elementVisibleFail": "Elemento ausente ou invisível.",
+    "flowExpected": "O fluxo é concluído sem exceção de automação nem erro de interface.",
+    "verificationExpected": "A verificação passa.",
+    "verificationFailed": "A verificação falhou.",
+    "axeExpected": "Nenhuma violação da regra do axe “{id}”.",
+    "axeAffected": "{count} elemento(s) afetado(s).",
+    "firstImpression": "Primeira impressão",
+    "contrastSiblingOverlayHint": "Possível causa raiz: um elemento irmão posicionado ({overlay}) é pintado atrás de {target}. O axe não usa overlays irmãos como fundo do texto; ele mediu {ancestor} ({background}). Dê background-color próprio ao elemento que contém o texto ou valide o contraste contra o ancestral medido."
+  },
+  "stepNames": {
+    "openTarget": "Abrir aplicação-alvo",
+    "adaptiveExploration": "Exploração adaptativa — {mode}",
+    "concurrentProtocols": "Protocolos concorrentes — {mode}",
+    "codeQualityFloor": "Qualidade de código e piso final"
+  },
+  "gateLabels": {
+    "initialState": "Estado inicial observado",
+    "browserTelemetry": "Telemetria do navegador ativa",
+    "stateDedup": "Estados deduplicados por impressão digital",
+    "responsive": "Auditoria responsiva concluída",
+    "axePerState": "Acessibilidade executada uma vez por estado único",
+    "destructive": "Ações destrutivas bloqueadas ou explicitamente autorizadas",
+    "auth": "Autenticação tratada explicitamente",
+    "misclickSample": "Amostra de cliques acidentais baseada em risco",
+    "firstImpression": "Primeira impressão do usuário capturada",
+    "parallelProtocols": "Protocolos concorrentes concluídos sem falha",
+    "codeQuality": "Lint e estrutura do código",
+    "budgetCoverage": "Cobertura do modo ≥ {target}%"
+  },
+  "weight": "Peso",
+  "opinions": "Heurísticas de percepção (opinativo)",
+  "opinionsIntro": "Padrões intencionais reconhecidos são registrados para transparência, mas não são tratados como defeitos nem falhas de CI.",
+  "acceptedPattern": "Padrão aceito",
+  "noOpinions": "Nenhuma heurística opinativa registrada."
+}

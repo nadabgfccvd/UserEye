@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scaling observability to 10 trillion events a day — Vela Analytics Blog</title>
+  <meta name="description" content="How we re-architected ingestion around a columnar store, cut p99 query latency by 38%, and the three things we would do differently." />
+  <meta name="theme-color" content="#0e7a6e" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e7a6e'/%3E%3Cpath d='M9 22L16 8l7 14' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/assets/css/tokens.css" />
+  <link rel="stylesheet" href="/assets/css/layout.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <link rel="stylesheet" href="/assets/css/pricing-blog.css" />
+  <link rel="stylesheet" href="/assets/css/product-pages.css" />
+  <link rel="stylesheet" href="/assets/css/responsive.css" />
+  <script src="/assets/charts.js" defer></script>
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <div class="progress-bar" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header" data-header>
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="Vela Analytics — home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <defs><linearGradient id="brandg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0e7a6e"/><stop offset="1" stop-color="#1d5fc2"/></linearGradient></defs>
+          <rect width="32" height="32" rx="9" fill="url(#brandg)"/>
+          <path d="M9 22 L16 8 L23 22" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 22 h8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        Vela&nbsp;Analytics
+      </a>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="/product">Product</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/blog" aria-current="page">Blog</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="icon-btn theme-toggle" data-theme-toggle aria-label="Switch to dark theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" data-demo-open aria-haspopup="dialog">Book a demo</button>
+        <button type="button" class="icon-btn nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="container article-hero">
+      <nav aria-label="Breadcrumb">
+        <p class="post-meta" style="margin:0 0 18px;"><a href="/blog">Blog</a> <span aria-hidden="true">/</span> <span aria-current="page">Scaling to 10T events</span></p>
+      </nav>
+      <p><span class="badge">Engineering</span></p>
+      <h1 class="article-title">Scaling observability to 10 trillion events a day</h1>
+      <p class="post-meta">
+        <span class="avatar" aria-hidden="true" style="width:34px;height:34px;font-size:0.8rem;">TW</span>
+        By <a href="/about#team">Tomas Weiser</a> · <time datetime="2026-08-18">August 18, 2026</time> · 12 min read
+      </p>
+    </div>
+
+    <div class="container article-layout">
+      <aside class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">On this page</h2>
+        <ol>
+          <li><a href="#the-wall">The wall at 4 trillion</a></li>
+          <li><a href="#columnar">Going columnar</a></li>
+          <li><a href="#query-core">The Rust query core</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#differently">What we'd do differently</a></li>
+        </ol>
+      </aside>
+
+      <article class="article">
+        <p id="the-wall" style="scroll-margin-top: 90px;"><strong>For two years our ingestion pipeline was a source of pride.</strong>
+          A Go service fanned out to Kafka, a consumer tier enriched spans, and a heavily-tuned
+          time-series database stored the result. It carried us from 50 billion to 4 trillion
+          events per day. Then, in March 2026, it stopped.</p>
+
+        <p>Not catastrophically — worse. It degraded the way only distributed systems can:
+          ingest lag crept from 2 seconds to 40, queries that used to take 800 ms started
+          timing out at 30 s, and our storage bill grew 3× faster than event volume. The
+          architecture hadn't broken. It had <em>succeeded</em> into a corner.</p>
+
+        <h2 id="the-wall">The wall at 4 trillion</h2>
+        <p>Profiling showed the bottleneck wasn't CPU or network — it was write amplification.
+          Every span touched four indexes. Every index wrote a WAL. Every WAL got compacted on
+          a schedule that didn't care about our traffic shape. At 46 million events per second,
+          we were spending 71% of IOPS re-writing data we had already written.</p>
+
+        <blockquote>
+          <p>The expensive part of observability is not storing your data once. It is storing
+            it five times in five different shapes “just in case”.</p>
+        </blockquote>
+
+        <h2 id="columnar">Going columnar</h2>
+        <p>The re-architecture boiled down to one decision: store each event <strong>exactly
+          once</strong>, in a columnar layout, sorted by time and service. Everything else —
+          indexes, rollups, aggregates — became lazily materialized views computed at query
+          time or by background workers, never on the ingest hot path.</p>
+
+        <figure>
+          <svg class="diagram" viewBox="0 0 720 220" role="img" aria-label="Diagram: events flow from agents through Kafka into a columnar store, with query core and materialized views on top">
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0L10 5L0 10z" fill="var(--accent)"/>
+              </marker>
+            </defs>
+            <g font-family="var(--font-sans)" font-size="13" text-anchor="middle">
+              <rect x="16" y="80" width="120" height="52" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="76" y="102" fill="var(--ink)" font-weight="700">Agents</text>
+              <text x="76" y="120" fill="var(--muted)">OTel · 46M eps</text>
+              <rect x="196" y="80" width="120" height="52" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="256" y="102" fill="var(--ink)" font-weight="700">Kafka</text>
+              <text x="256" y="120" fill="var(--muted)">buffer · replay</text>
+              <rect x="376" y="80" width="140" height="52" rx="10" fill="var(--blue-soft)" stroke="var(--blue)"/>
+              <text x="446" y="102" fill="var(--ink)" font-weight="700">Columnar store</text>
+              <text x="446" y="120" fill="var(--muted)">write once · zstd</text>
+              <rect x="576" y="30" width="128" height="52" rx="10" fill="var(--coral-soft)" stroke="var(--coral)"/>
+              <text x="640" y="52" fill="var(--ink)" font-weight="700">Query core</text>
+              <text x="640" y="70" fill="var(--muted)">Rust · vectorized</text>
+              <rect x="576" y="130" width="128" height="52" rx="10" fill="var(--amber-soft)" stroke="var(--amber)"/>
+              <text x="640" y="152" fill="var(--ink)" font-weight="700">Mat. views</text>
+              <text x="640" y="170" fill="var(--muted)">lazy rollups</text>
+              <line x1="136" y1="106" x2="192" y2="106" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow)"/>
+              <line x1="316" y1="106" x2="372" y2="106" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow)"/>
+              <line x1="516" y1="94" x2="572" y2="62" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow)"/>
+              <line x1="516" y1="118" x2="572" y2="150" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow)"/>
+            </g>
+          </svg>
+          <figcaption>The 2026 ingestion path. Hot path does one thing: append sorted columnar batches.</figcaption>
+        </figure>
+
+        <p>Three details did the heavy lifting:</p>
+        <ol>
+          <li><strong>Sort keys that match questions.</strong> We sort by
+            <code>(timestamp, service, route)</code> because 94% of queries filter on exactly
+            those. Sort order is the cheapest index you will ever buy.</li>
+          <li><strong>Dictionary encoding for everything repetitive.</strong> Service names,
+            routes, status codes and regions become 16-bit dictionary IDs. Compression improved
+            2.4× and scans got faster because the CPU touches less memory.</li>
+          <li><strong>Late materialization.</strong> Filters run on encoded columns; the
+            expensive wide-row assembly happens only for rows that survive.</li>
+        </ol>
+
+        <h2 id="query-core">The Rust query core</h2>
+        <p>Storage was half the battle. The other half was a query engine that could scan
+          billions of encoded values per second. We wrote it in Rust with SIMD-accelerated
+          filter kernels, and — this matters more than any micro-optimization — with a
+          benchmark harness that runs on every pull request against a fixed 500 GB corpus.</p>
+
+        <pre class="code-block" aria-label="Example Vela SQL query"><code><span class="c">-- the query that used to time out, now ~380 ms</span>
+<span class="k">SELECT</span> route,
+       quantile(duration_ms, <span class="s">0.95</span>) <span class="k">AS</span> p95,
+       count(*) <span class="k">AS</span> requests
+<span class="k">FROM</span> traces
+<span class="k">WHERE</span> service = <span class="s">'checkout-api'</span>
+  <span class="k">AND</span> timestamp &gt;= now() - <span class="k">INTERVAL</span> <span class="s">'24 hours'</span>
+<span class="k">GROUP BY</span> route
+<span class="k">ORDER BY</span> p95 <span class="k">DESC</span>
+<span class="k">LIMIT</span> <span class="s">10</span>;</code></pre>
+
+        <h2 id="results">Results</h2>
+        <p>Six months after cutover, at 10.2 trillion events per day:</p>
+        <ul>
+          <li>p99 query latency: <strong>3.1 s → 1.9 s</strong> (and the median is 380 ms)</li>
+          <li>ingest lag: <strong>40 s → 1.4 s</strong> at peak</li>
+          <li>storage cost per event: <strong>−63%</strong></li>
+          <li>IOPS spent on write amplification: <strong>71% → 9%</strong></li>
+        </ul>
+
+        <h2 id="differently">What we'd do differently</h2>
+        <p>Three honest regrets. First, we'd model the sort key decision as a product question
+          from day one, not an infra one — query patterns <em>are</em> the product. Second,
+          we'd invest in the benchmark corpus before the rewrite, not during; two regressions
+          slipped through the early weeks. Third, we'd migrate tenant-by-tenant instead of
+          region-by-region — the blast radius of a bad week would have been 2% of customers,
+          not 30%.</p>
+
+        <p>If your pipeline is “succeeding into a corner” too, the
+          <a href="/product#demo">live demo dashboard</a> shows what the query side feels like,
+          and the <a href="/pricing">pricing page</a> explains what it costs. Or just
+          <a href="/contact">email Tomas</a> — he likes this stuff.</p>
+
+        <div class="share-row">
+          <button type="button" class="btn btn-ghost btn-sm" data-copy-link>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
+            Copy link
+          </button>
+          <span class="field-hint" role="status" data-copy-status></span>
+        </div>
+
+        <div class="author-box">
+          <span class="avatar lg" aria-hidden="true">TW</span>
+          <div class="who">
+            <b>Tomas Weiser</b>
+            <p>Head of Infrastructure at Vela. Previously storage engineering at two databases
+              you have heard of. Writes about columnar stores and on-call culture.</p>
+          </div>
+        </div>
+
+        <section aria-labelledby="related-title" style="margin-top: 48px;">
+          <h2 id="related-title" style="font-size: 1.3rem;">Related reading</h2>
+          <div class="grid grid-2" style="margin-top: 16px;">
+            <article class="card">
+              <p><span class="badge">Engineering</span></p>
+              <h3 style="font-size:1.05rem;"><a href="/blog">How we cut our p95 latency by 38%</a></h3>
+              <p>The companion piece: one allocation pattern in the query core, and the
+                benchmark harness that caught it.</p>
+            </article>
+            <article class="card">
+              <p><span class="badge coral">Product</span></p>
+              <h3 style="font-size:1.05rem;"><a href="/blog">A field guide to SLOs for product teams</a></h3>
+              <p>Now that queries are fast, decide what “fast enough” actually means for your
+                users.</p>
+            </article>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="/" aria-label="Vela Analytics — home">
+            <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+              <rect width="32" height="32" rx="9" fill="#0e7a6e"/>
+              <path d="M9 22 L16 8 L23 22" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 22 h8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+            </svg>
+            Vela&nbsp;Analytics
+          </a>
+          <p>Observability for modern product teams. Built in Lisbon and Berlin, run everywhere you are.</p>
+          <div class="social">
+            <a href="https://github.com/" aria-label="Vela on GitHub (external)" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></a>
+            <a href="https://www.linkedin.com/" aria-label="Vela on LinkedIn (external)" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4V9z"/></svg></a>
+            <a href="https://x.com/" aria-label="Vela on X (external)" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.9-6.4L6.5 22H3.4l7.24-8.28L2 2h6.4l4.42 5.85L18.9 2zm-1.1 18h1.73L7.02 3.9H5.17L17.8 20z"/></svg></a>
+          </div>
+        </div>
+        <nav aria-labelledby="footer-product"><h2 class="footer-heading" id="footer-product">Product</h2>
+          <ul class="footer-links"><li><a href="/product#features">Features</a></li><li><a href="/product#demo">Live demo</a></li><li><a href="/product#integrations">Integrations</a></li><li><a href="/pricing">Pricing</a></li></ul></nav>
+        <nav aria-labelledby="footer-company"><h2 class="footer-heading" id="footer-company">Company</h2>
+          <ul class="footer-links"><li><a href="/about">About us</a></li><li><a href="/blog">Blog</a></li><li><a href="/about#careers">Careers</a></li><li><a href="/contact">Contact</a></li></ul></nav>
+        <nav aria-labelledby="footer-resources"><h2 class="footer-heading" id="footer-resources">Resources</h2>
+          <ul class="footer-links"><li><a href="/blog/scaling-observability-to-10-trillion-events">Engineering guide</a></li><li><a href="/blog?tag=changelog">Changelog</a></li><li><a href="/legal#security">Security</a></li><li><a href="/legal">Status &amp; SLA</a></li></ul></nav>
+        <nav aria-labelledby="footer-legal"><h2 class="footer-heading" id="footer-legal">Legal</h2>
+          <ul class="footer-links"><li><a href="/legal#privacy">Privacy</a></li><li><a href="/legal#terms">Terms</a></li><li><a href="/legal#dpa">DPA</a></li></ul></nav>
+      </div>
+      <div class="footer-bottom">
+        <p style="margin:0;">© <span id="year">2026</span> Vela Analytics, Lda. — a fictional demo site built to test UserEye.</p>
+        <span class="status-pill">All systems operational</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookie-banner" role="region" aria-label="Cookie consent" hidden>
+    <p><b>We value your privacy</b> This demo site uses only functional local storage (theme &amp; cookie preference). No trackers, ever.</p>
+    <div class="cookie-actions">
+      <button type="button" class="btn btn-primary btn-sm" data-cookie-accept>Accept</button>
+      <button type="button" class="btn btn-ghost btn-sm" data-cookie-decline>Decline</button>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{
+  "auth": ["se connecter", "connexion", "continuer", "d\\u00e9verrouiller"],
+  "authPage": ["se connecter", "connexion", "mot de passe", "d\\u00e9verrouiller"],
+  "setupPage": ["s'inscrire", "inscription", "cr\\u00e9er un compte", "premier acc\\u00e8s", "configur"],
+  "dangerous": [
+    "supprimer",
+    "effacer",
+    "d\\u00e9connexion",
+    "se d\\u00e9connecter",
+    "bloquer",
+    "acheter",
+    "payer",
+    "paiement",
+    "fermer le compte"
+  ],
+  "write": [
+    "nouveau",
+    "nouvelle",
+    "ajouter",
+    "cr\\u00e9er",
+    "enregistrer",
+    "modifier",
+    "envoyer",
+    "joindre",
+    "publier"
+  ],
+  "navigation": [
+    "menu",
+    "param\\u00e8tres",
+    "profil",
+    "accueil",
+    "tableau de bord",
+    "retour",
+    "suivant",
+    "onglet"
+  ],
+  "utility": [
+    "rechercher",
+    "recherche",
+    "filtrer",
+    "copier",
+    "afficher",
+    "masquer",
+    "g\\u00e9n\\u00e9rer",
+    "fermer",
+    "annuler"
+  ],
+  "skipLink": ["aller au contenu", "passer", "contenu"],
+  "copy": ["copier"],
+  "errorPage": ["erreur", "\\u00e9chec", "introuvable", "non disponible"],
+  "emptyPage": ["vide", "aucune donn\\u00e9e", "aucun r\\u00e9sultat", "aucun \\u00e9l\\u00e9ment"]
+}

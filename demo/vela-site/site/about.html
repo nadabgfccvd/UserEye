@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — Vela Analytics</title>
+  <meta name="description" content="Vela is 84 people in Lisbon and Berlin building fast, private observability. Our story, values, team and open roles." />
+  <meta name="theme-color" content="#0e7a6e" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e7a6e'/%3E%3Cpath d='M9 22L16 8l7 14' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/assets/css/tokens.css" />
+  <link rel="stylesheet" href="/assets/css/layout.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <link rel="stylesheet" href="/assets/css/pricing-blog.css" />
+  <link rel="stylesheet" href="/assets/css/product-pages.css" />
+  <link rel="stylesheet" href="/assets/css/responsive.css" />
+  <script src="/assets/charts.js" defer></script>
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header" data-header>
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="Vela Analytics — home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <defs><linearGradient id="brandg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0e7a6e"/><stop offset="1" stop-color="#1d5fc2"/></linearGradient></defs>
+          <rect width="32" height="32" rx="9" fill="url(#brandg)"/>
+          <path d="M9 22 L16 8 L23 22" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 22 h8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        Vela&nbsp;Analytics
+      </a>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="/product">Product</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about" aria-current="page">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="icon-btn theme-toggle" data-theme-toggle aria-label="Switch to dark theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" data-demo-open aria-haspopup="dialog">Book a demo</button>
+        <button type="button" class="icon-btn nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" aria-labelledby="about-title">
+      <div class="container split">
+        <div>
+          <p class="eyebrow" data-reveal>About</p>
+          <h1 id="about-title" data-reveal>We think debugging should feel like <span class="grad">superpowers</span></h1>
+          <p class="hero-sub" data-reveal>
+            Vela started in 2019 because our founders were tired of paying three vendors to
+            answer one question: “why is it slow for real users right now?”
+          </p>
+          <div class="hero-ctas" data-reveal>
+            <a class="btn btn-primary btn-lg" href="#careers">See open roles</a>
+            <a class="btn btn-ghost btn-lg" href="/blog">Read the blog</a>
+          </div>
+        </div>
+        <div class="card" data-reveal aria-label="Company facts">
+          <div class="mock-rows" style="gap:12px;">
+            <div class="mock-row"><strong>Founded</strong> <span class="pill">2019 · Lisbon</span></div>
+            <div class="mock-row"><strong>Team</strong> <span class="pill">84 people, 19 countries</span></div>
+            <div class="mock-row"><strong>Offices</strong> <span class="pill">Lisbon · Berlin · remote</span></div>
+            <div class="mock-row"><strong>Customers</strong> <span class="pill">4,200+ teams</span></div>
+            <div class="mock-row"><strong>Funding</strong> <span class="pill">Series B · profitable since 2024</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= TIMELINE =========================== -->
+    <section class="section" aria-labelledby="story-title" style="background: var(--bg-alt); border-block: 1px solid var(--line);">
+      <div class="container split" style="align-items:start;">
+        <div data-reveal>
+          <p class="eyebrow">Story</p>
+          <h2 id="story-title">Seven years, one obsession</h2>
+          <p class="section-sub">Making telemetry fast enough that people actually use it.</p>
+        </div>
+        <ol class="timeline" data-reveal>
+          <li>
+            <p class="year">2019</p>
+            <p>Maya and Rafael build the first prototype in a Lisbon coworking space. The
+              pitch: “traces that open before you finish clicking”.</p>
+          </li>
+          <li>
+            <p class="year">2021</p>
+            <p>First 1,000 teams. Series A. The agent that auto-discovers your stack ships —
+              onboarding drops from two weeks to ten minutes.</p>
+          </li>
+          <li>
+            <p class="year">2023</p>
+            <p>Anomaly detection goes GA. For the first time, Vela pages customers about
+              problems before their customers notice them.</p>
+          </li>
+          <li>
+            <p class="year">2025</p>
+            <p>The columnar re-architecture lands. 10 trillion events a day, p99 queries
+              under two seconds, storage costs down 63%.</p>
+          </li>
+          <li>
+            <p class="year">2026</p>
+            <p>SOC 2 Type II, EU data residency and DPA signed. 4,200+ teams, 84 people,
+              profitable and remote-first.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- =========================== VALUES =========================== -->
+    <section class="section" id="values" aria-labelledby="values-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Values</p>
+          <h2 id="values-title">What we actually mean by them</h2>
+          <p class="section-sub">Not posters on a wall — these decide who we hire, what we ship
+            and which customers we say no to.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="card value-card" data-reveal>
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z"/></svg></div>
+            <b>Speed is a feature</b>
+            <p>Every pull request runs the full query benchmark. If a change makes Vela
+              slower, it does not merge — no matter whose change it is.</p>
+          </article>
+          <article class="card value-card" data-reveal>
+            <div class="feature-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z"/></svg></div>
+            <b>Privacy is architecture</b>
+            <p>We cannot leak what we do not store. Telemetry stays in your region, keys stay
+              in your hands, and we publish our sub-processors.</p>
+          </article>
+          <article class="card value-card" data-reveal>
+            <div class="feature-icon coral" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+            <b>Write it down</b>
+            <p>Decisions live in public RFCs, incidents in blameless postmortems, roadmaps in
+              the open. Async-first beats meeting-first.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ TEAM ============================ -->
+    <section class="section" id="team" aria-labelledby="team-title" style="background: var(--bg-alt); border-block: 1px solid var(--line);">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Team</p>
+          <h2 id="team-title">The people behind the platform</h2>
+          <p class="section-sub">84 humans across 19 countries. These six answer most of the
+            email.</p>
+        </div>
+        <div class="team-grid">
+          <article class="card team-card" data-reveal>
+            <span class="avatar lg" aria-hidden="true">MO</span>
+            <div class="who"><b>Maya Okonkwo</b><span>Co-founder &amp; CEO</span>
+              <p>Ex-Stripe platform lead. Believes on-call is a design problem.</p></div>
+          </article>
+          <article class="card team-card" data-reveal>
+            <span class="avatar lg c2" aria-hidden="true">RD</span>
+            <div class="who"><b>Rafael Duarte</b><span>Co-founder &amp; CTO</span>
+              <p>Wrote the first query core on a train to Porto. Still reviews storage PRs.</p></div>
+          </article>
+          <article class="card team-card" data-reveal>
+            <span class="avatar lg c3" aria-hidden="true">IS</span>
+            <div class="who"><b>Ingrid Solberg</b><span>VP Design</span>
+              <p>Runs the “dashboards people read” practice. Ex-Figma, ex-NRK.</p></div>
+          </article>
+          <article class="card team-card" data-reveal>
+            <span class="avatar lg c4" aria-hidden="true">TW</span>
+            <div class="who"><b>Tomas Weiser</b><span>Head of Infrastructure</span>
+              <p>Led the 10-trillion-event re-architecture. <a href="/blog/scaling-observability-to-10-trillion-events">Wrote it up</a>.</p></div>
+          </article>
+          <article class="card team-card" data-reveal>
+            <span class="avatar lg" aria-hidden="true">AN</span>
+            <div class="who"><b>Amara Nwosu</b><span>Head of Data Science</span>
+              <p>Builds the anomaly models. Will happily explain seasonality at parties.</p></div>
+          </article>
+          <article class="card team-card" data-reveal>
+            <span class="avatar lg c2" aria-hidden="true">KM</span>
+            <div class="who"><b>Kenji Mori</b><span>Head of Support</span>
+              <p>Keeps the 1-hour Business SLA honest. Former SRE, still pages himself.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== CAREERS =========================== -->
+    <section class="section" id="careers" aria-labelledby="careers-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Careers</p>
+          <h2 id="careers-title">Open roles</h2>
+          <p class="section-sub">Remote-first (CET ± 4h). We publish salary bands for every
+            role — the ones below are real bands.</p>
+        </div>
+        <div class="compare-wrap" data-reveal tabindex="0" role="region" aria-label="Open roles table, scrollable">
+          <table class="compare-table">
+            <caption>Current openings at Vela Analytics</caption>
+            <thead>
+              <tr><th scope="col">Role</th><th scope="col">Team</th><th scope="col">Location</th><th scope="col">Salary band (EUR)</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row"><a href="/contact">Senior Storage Engineer</a></th><td>Infrastructure</td><td>Remote / Berlin</td><td>€95k–€125k</td></tr>
+              <tr><th scope="row"><a href="/contact">Product Designer, Data Viz</a></th><td>Design</td><td>Remote / Lisbon</td><td>€78k–€102k</td></tr>
+              <tr><th scope="row"><a href="/contact">Full-stack Engineer, Dashboards</a></th><td>Product</td><td>Remote (CET ± 4h)</td><td>€82k–€110k</td></tr>
+              <tr><th scope="row"><a href="/contact">Technical Support Engineer</a></th><td>Support</td><td>Remote</td><td>€60k–€80k</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p data-reveal style="margin-top:22px; color: var(--muted);">
+          Don't see your role? <a href="/contact">Send us a note anyway</a> — a third of the
+          team joined through speculative emails.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="/" aria-label="Vela Analytics — home">
+            <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+              <rect width="32" height="32" rx="9" fill="#0e7a6e"/>
+              <path d="M9 22 L16 8 L23 22" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 22 h8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+            </svg>
+            Vela&nbsp;Analytics
+          </a>
+          <p>Observability for modern product teams. Built in Lisbon and Berlin, run everywhere you are.</p>
+          <div class="social">
+            <a href="https://github.com/" aria-label="Vela on GitHub (external)" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></a>
+            <a href="https://www.linkedin.com/" aria-label="Vela on LinkedIn (external)" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4V9z"/></svg></a>
+            <a href="https://x.com/" aria-label="Vela on X (external)" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.9-6.4L6.5 22H3.4l7.24-8.28L2 2h6.4l4.42 5.85L18.9 2zm-1.1 18h1.73L7.02 3.9H5.17L17.8 20z"/></svg></a>
+          </div>
+        </div>
+        <nav aria-labelledby="footer-product"><h2 class="footer-heading" id="footer-product">Product</h2>
+          <ul class="footer-links"><li><a href="/product#features">Features</a></li><li><a href="/product#demo">Live demo</a></li><li><a href="/product#integrations">Integrations</a></li><li><a href="/pricing">Pricing</a></li></ul></nav>
+        <nav aria-labelledby="footer-company"><h2 class="footer-heading" id="footer-company">Company</h2>
+          <ul class="footer-links"><li><a href="/about">About us</a></li><li><a href="/blog">Blog</a></li><li><a href="/about#careers">Careers</a></li><li><a href="/contact">Contact</a></li></ul></nav>
+        <nav aria-labelledby="footer-resources"><h2 class="footer-heading" id="footer-resources">Resources</h2>
+          <ul class="footer-links"><li><a href="/blog/scaling-observability-to-10-trillion-events">Engineering guide</a></li><li><a href="/blog?tag=changelog">Changelog</a></li><li><a href="/legal#security">Security</a></li><li><a href="/legal">Status &amp; SLA</a></li></ul></nav>
+        <nav aria-labelledby="footer-legal"><h2 class="footer-heading" id="footer-legal">Legal</h2>
+          <ul class="footer-links"><li><a href="/legal#privacy">Privacy</a></li><li><a href="/legal#terms">Terms</a></li><li><a href="/legal#dpa">DPA</a></li></ul></nav>
+      </div>
+      <div class="footer-bottom">
+        <p style="margin:0;">© <span id="year">2026</span> Vela Analytics, Lda. — a fictional demo site built to test UserEye.</p>
+        <span class="status-pill">All systems operational</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookie-banner" role="region" aria-label="Cookie consent" hidden>
+    <p><b>We value your privacy</b> This demo site uses only functional local storage (theme &amp; cookie preference). No trackers, ever.</p>
+    <div class="cookie-actions">
+      <button type="button" class="btn btn-primary btn-sm" data-cookie-accept>Accept</button>
+      <button type="button" class="btn btn-ghost btn-sm" data-cookie-decline>Decline</button>
+    </div>
+  </div>
+</body>
+</html>

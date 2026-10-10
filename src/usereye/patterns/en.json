@@ -1,0 +1,25 @@
+{
+  "auth": ["login", "log\\s*in", "sign[ -]?in", "continue", "unlock"],
+  "authPage": ["login", "log\\s*in", "sign[ -]?in", "password", "passcode", "unlock"],
+  "setupPage": ["register", "sign[ -]?up", "create account", "first access", "setup", "configure"],
+  "dangerous": [
+    "delete",
+    "remove",
+    "destroy",
+    "logout",
+    "log\\s*out",
+    "block",
+    "purchase",
+    "checkout",
+    "pay",
+    "payment",
+    "close account"
+  ],
+  "write": ["new", "add", "create", "save", "edit", "upload", "attach", "send", "submit", "publish"],
+  "navigation": ["menu", "settings", "profile", "home", "dashboard", "back", "next", "tab"],
+  "utility": ["search", "filter", "copy", "show", "hide", "generate", "close", "cancel", "dismiss"],
+  "skipLink": ["skip", "content"],
+  "copy": ["copy"],
+  "errorPage": ["error", "failure", "not found", "404", "500", "unavailable"],
+  "emptyPage": ["empty", "no results", "no items"]
+}

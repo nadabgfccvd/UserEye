@@ -1,0 +1,329 @@
+name: UserEye
+
+description: Run project-agnostic UserEye exploration, upload its evidence, and summarize it on the PR
+
+author: UserEye contributors
+
+inputs:
+  url:
+    description: URL of an already-running application
+    required: false
+  project:
+    description: Project directory
+    required: false
+    default: .
+  config:
+    description: UserEye config path
+    required: false
+  mode:
+    description: quick, standard, or deep
+    required: false
+    default: standard
+  browser:
+    description: chromium (default), firefox, or webkit
+    required: false
+    default: chromium
+  artifacts:
+    description: Artifact output directory
+    required: false
+    default: artifacts/usereye
+  report-format:
+    description: Comma-separated report formats. Add sarif to enable code-scanning upload.
+    required: false
+    default: html,md
+  upload-sarif:
+    description: Upload usereye.sarif to GitHub code scanning when report-format includes sarif
+    required: false
+    default: 'true'
+  soft-fail:
+    description: >-
+      Do not fail the workflow when UserEye finds quality issues (exit stays 0).
+      Recommended for gradual adoption: run a first sprint with soft-fail 'true',
+      read the job summary, then flip it to 'false' once the noise floor is known.
+    required: false
+    default: 'false'
+  video:
+    description: >-
+      Session video policy. 'on-failure' (default) records but discards the video
+      on a clean run, so green jobs pay no artifact cost; 'always' keeps
+      user-eye-session.webm; 'never' disables recording entirely.
+    required: false
+    default: on-failure
+  trace:
+    description: >-
+      Playwright trace policy (7.5.1). 'on-failure' (default) records but discards
+      user-eye-trace.zip on a clean run - it was the largest artifact of a green
+      job; 'always' keeps it; 'never' disables tracing.
+    required: false
+    default: on-failure
+  misclick-policy:
+    description: >-
+      Near-miss (misclick) policy. 'stable-only' (default) reserves "harmful" for
+      hard signals - URL change, dialog, dangerous control; 'aggressive' also
+      counts repaint-only side effects. Use 'aggressive' for forensic/lab runs.
+    required: false
+    default: stable-only
+  allow-project-commands:
+    description: >-
+      Authorize UserEye to execute commands that come FROM THE TARGET REPOSITORY
+      (comma separated: scripts,binaries,install,lint,format,typecheck,all).
+      Empty (default) means project analysis stays static — nothing from the
+      target is executed. Only set this for repositories you trust.
+    required: false
+    default: ''
+  comment-on-pr:
+    description: >-
+      Post the md-pr report as a pull-request comment (updated in place on each
+      push, never duplicated). Requires `pull-requests: write`.
+    required: false
+    default: 'true'
+  baseline:
+    description: >-
+      Baseline handling. 'auto' (default) downloads the trunk baseline on pull
+      requests and runs --compare against it, and re-publishes the baseline when
+      running on the default branch. 'off' disables both.
+    required: false
+    default: auto
+  baseline-artifact:
+    description: Artifact name holding the trunk result.json baseline
+    required: false
+    default: usereye-baseline
+  extra-args:
+    description: Additional trusted CLI arguments
+    required: false
+    default: ''
+
+outputs:
+  exit-code:
+    description: The raw UserEye exit code (0 pass, 1 quality failures, 2 setup/usage)
+    value: ${{ steps.run.outputs.exit_code }}
+  result-json:
+    description: Path to result.json
+    value: ${{ inputs.artifacts }}/result.json
+
+runs:
+  using: composite
+  steps:
+    - name: Install UserEye dependencies
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm ci --omit=dev
+
+    - name: Cache Playwright browsers
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('${{ github.action_path }}/package-lock.json') }}
+        restore-keys: |
+          playwright-${{ runner.os }}-
+
+    - name: Install Chromium
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npx playwright install --with-deps ${{ inputs.browser }}
+
+    # Phase 5: judge a PR on what it INTRODUCED, not on the absolute count.
+    # A repo with a known backlog otherwise fails every PR and the gate gets
+    # switched off. `continue-on-error` because a missing baseline (first run,
+    # expired artifact) must degrade to "no comparison", never fail the job.
+    - name: Download trunk baseline
+      id: baseline
+      if: inputs.baseline == 'auto' && github.event_name == 'pull_request'
+      continue-on-error: true
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.baseline-artifact }}
+        path: ${{ runner.temp }}/usereye-baseline
+        github-token: ${{ github.token }}
+        run-id: ${{ github.event.repository.id && github.run_id || github.run_id }}
+
+    - name: Run UserEye
+      id: run
+      shell: bash
+      env:
+        INPUT_URL: ${{ inputs.url }}
+        INPUT_PROJECT: ${{ inputs.project }}
+        INPUT_CONFIG: ${{ inputs.config }}
+        INPUT_MODE: ${{ inputs.mode }}
+        INPUT_BROWSER: ${{ inputs.browser }}
+        INPUT_ARTIFACTS: ${{ inputs.artifacts }}
+        INPUT_REPORT: ${{ inputs.report-format }}
+        INPUT_VIDEO: ${{ inputs.video }}
+        INPUT_TRACE: ${{ inputs.trace }}
+        INPUT_MISCICK: ${{ inputs.misclick-policy }}
+        INPUT_ALLOW_PROJECT_COMMANDS: ${{ inputs.allow-project-commands }}
+        INPUT_BASELINE: ${{ runner.temp }}/usereye-baseline/result.json
+        INPUT_COMMENT: ${{ inputs.comment-on-pr }}
+        INPUT_EVENT: ${{ github.event_name }}
+        INPUT_EXTRA: ${{ inputs.extra-args }}
+      run: |
+        set +e
+        args=(auto --project "$INPUT_PROJECT" --mode "$INPUT_MODE" --browser "$INPUT_BROWSER" --out "$INPUT_ARTIFACTS" --report-format "$INPUT_REPORT")
+        [[ -z "$INPUT_URL" ]] || args+=(--url "$INPUT_URL")
+        [[ -z "$INPUT_CONFIG" ]] || args+=(--config "$INPUT_CONFIG")
+        # Calm CI profile: these mirror the engine defaults and are passed
+        # explicitly so the resolved profile is visible in the run log. An empty
+        # value means "leave it to config/DEFAULT_CONFIG".
+        case "$INPUT_VIDEO" in
+          always) args+=(--video) ;;
+          never) args+=(--no-video) ;;
+          on-failure) args+=(--video-on-failure) ;;
+          '') ;;
+          *) echo "::error::invalid 'video' input '$INPUT_VIDEO' (use on-failure, always or never)"; exit 2 ;;
+        esac
+        case "$INPUT_TRACE" in
+          on-failure|always|never) args+=(--trace "$INPUT_TRACE") ;;
+          '') ;;
+          *) echo "::error::invalid 'trace' input '$INPUT_TRACE' (use on-failure, always or never)"; exit 2 ;;
+        esac
+        case "$INPUT_MISCICK" in
+          stable-only|aggressive) args+=(--misclick-policy "$INPUT_MISCICK") ;;
+          '') ;;
+          *) echo "::error::invalid 'misclick-policy' input '$INPUT_MISCICK' (use stable-only or aggressive)"; exit 2 ;;
+        esac
+        # Code-execution boundary: nothing from the target repository runs
+        # unless the workflow author explicitly authorized a category.
+        [[ -z "$INPUT_ALLOW_PROJECT_COMMANDS" ]] || args+=(--allow-project-commands "$INPUT_ALLOW_PROJECT_COMMANDS")
+        # Compare against the trunk baseline when one was downloaded.
+        if [[ -f "$INPUT_BASELINE" ]]; then
+          echo "Comparing against trunk baseline $INPUT_BASELINE"
+          args+=(--compare "$INPUT_BASELINE")
+        fi
+        # The PR comment needs the md-pr report; add it if the caller did not.
+        if [[ "$INPUT_COMMENT" == "true" && "$INPUT_EVENT" == "pull_request" && "$INPUT_REPORT" != *"md-pr"* ]]; then
+          args+=(--report-format "$INPUT_REPORT,md-pr")
+        fi
+        # extra-args is intended only for trusted workflow configuration. It is
+        # appended last, so it can still override the flags above.
+        if [[ -n "$INPUT_EXTRA" ]]; then read -r -a extra <<< "$INPUT_EXTRA"; args+=("${extra[@]}"); fi
+        node "${{ github.action_path }}/bin/usereye.js" "${args[@]}"
+        code=$?
+        echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+        exit 0
+
+    - name: Upload UserEye artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: usereye-${{ github.run_id }}
+        path: ${{ inputs.artifacts }}
+        if-no-files-found: warn
+
+    - name: Write job summary
+      if: always()
+      shell: bash
+      env:
+        RESULT_JSON: ${{ inputs.artifacts }}/result.json
+      run: |
+        node - "$RESULT_JSON" <<'NODE' >> "$GITHUB_STEP_SUMMARY"
+        const fs = require('fs');
+        const file = process.argv[2];
+        if (!fs.existsSync(file)) { process.exit(0); }
+        const r = JSON.parse(fs.readFileSync(file, 'utf8'));
+        const issues = r.issues || [];
+        const sev = r.summary?.severity || {};
+        const actionable = r.findings?.actionable;
+        const lines = [`## UserEye — ${r.application?.name || 'application'}`];
+        lines.push(`- **Adaptive score:** ${r.adaptive?.quality?.score ?? '—'}/100`);
+        lines.push(`- **Quality gates:** ${r.qualityGates?.passed ? 'PASS' : 'FAIL'}`);
+        lines.push(`- **Issues:** ${r.summary?.issues ?? 0} (blocker ${sev.blocker ?? 0} · critical ${sev.critical ?? 0} · major ${sev.major ?? 0})`);
+        if (actionable) lines.push(`- **Actionable:** ${actionable.total} · Review: ${r.findings?.review ?? 0} · Signals: ${r.findings?.signals ?? 0}`);
+        const held = r.findings?.heldBack ?? 0;
+        if (held) lines.push(`- **Held below the report confidence floor:** ${held} (still in \`result.json\` under \`issuesAll\`)`);
+        if (issues.length) { lines.push('', '**Top findings:**'); issues.slice(0, 5).forEach(i => lines.push(`- **${i.severity}** · ${i.confidence || ''} · ${i.id} — ${i.title}`)); }
+        else lines.push('', '_No findings._');
+        lines.push('', 'Full evidence uploaded as the `usereye` artifact — open `report.html` for detail.');
+        process.stdout.write(lines.join('\n') + '\n');
+        NODE
+
+    # Phase 5: one comment per PR, edited in place — a new comment on every push
+    # trains reviewers to ignore the bot.
+    - name: Comment on the pull request
+      if: always() && inputs.comment-on-pr == 'true' && github.event_name == 'pull_request'
+      continue-on-error: true
+      uses: actions/github-script@v7
+      env:
+        REPORT_PR: ${{ inputs.artifacts }}/report-pr.md
+        RESULT_JSON: ${{ inputs.artifacts }}/result.json
+      with:
+        script: |
+          const fs = require('fs');
+          const marker = '<!-- usereye-report -->';
+          let body = marker + '\n';
+          if (fs.existsSync(process.env.REPORT_PR)) {
+            body += fs.readFileSync(process.env.REPORT_PR, 'utf8');
+          } else if (fs.existsSync(process.env.RESULT_JSON)) {
+            const r = JSON.parse(fs.readFileSync(process.env.RESULT_JSON, 'utf8'));
+            body += `## UserEye\n\nScore ${r.adaptive?.quality?.score ?? '—'}/100 · ` +
+              `${r.summary?.issues ?? 0} finding(s) · gates ${r.qualityGates?.passed ? 'PASS' : 'FAIL'}.`;
+          } else {
+            body += '## UserEye\n\nThe run produced no report (setup failure) — see the job log.';
+          }
+          const diff = (() => {
+            try { return JSON.parse(fs.readFileSync(process.env.RESULT_JSON, 'utf8')).diff; } catch { return null; }
+          })();
+          if (diff) {
+            const introduced = diff.issues?.introduced || [];
+            const resolved = diff.issues?.resolved || [];
+            body += `\n\n**vs. trunk baseline:** ${introduced.length} new · ${resolved.length} resolved.`;
+            if (introduced.length) {
+              body += '\n\n<details><summary>New in this PR</summary>\n\n' +
+                introduced.slice(0, 20).map(i => `- **${i.severity}** — ${i.title || i.id}`).join('\n') +
+                '\n\n</details>';
+            }
+          }
+          const { owner, repo } = context.repo;
+          const issue_number = context.payload.pull_request.number;
+          const existing = (await github.rest.issues.listComments({ owner, repo, issue_number, per_page: 100 }))
+            .data.find(comment => comment.body?.includes(marker));
+          if (existing) {
+            await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+          } else {
+            await github.rest.issues.createComment({ owner, repo, issue_number, body });
+          }
+
+    # Publish the new baseline only from the default branch, so a PR can never
+    # move the bar it is being measured against.
+    - name: Publish trunk baseline
+      if: always() && inputs.baseline == 'auto' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+      continue-on-error: true
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.baseline-artifact }}
+        path: ${{ inputs.artifacts }}/result.json
+        retention-days: 90
+        overwrite: true
+        if-no-files-found: warn
+
+    - name: Upload SARIF to code scanning
+      if: always()
+      shell: bash
+      env:
+        SARIF: ${{ inputs.artifacts }}/usereye.sarif
+        UPLOAD: ${{ inputs.upload-sarif }}
+      run: |
+        echo "SARIF_EXISTS=false" >> "$GITHUB_ENV"
+        if [[ "$UPLOAD" == "true" && -f "$SARIF" ]]; then echo "SARIF_EXISTS=true" >> "$GITHUB_ENV"; fi
+    - name: Upload SARIF
+      if: env.SARIF_EXISTS == 'true'
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: ${{ inputs.artifacts }}/usereye.sarif
+        category: usereye
+
+    - name: Apply UserEye exit code
+      if: always()
+      shell: bash
+      env:
+        USEREYE_EXIT: ${{ steps.run.outputs.exit_code }}
+        SOFT_FAIL: ${{ inputs.soft-fail }}
+      run: |
+        if [[ "$SOFT_FAIL" == "true" ]]; then
+          echo "soft-fail enabled — reporting UserEye exit $USEREYE_EXIT without failing the job."
+          exit 0
+        fi
+        exit "${USEREYE_EXIT:-2}"
+
+branding:
+  icon: eye
+  color: purple

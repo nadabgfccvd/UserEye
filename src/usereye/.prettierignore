@@ -1,0 +1,13 @@
+node_modules/
+coverage/
+tests/fixtures/
+tests/benchmarks/
+types/
+.changeset/
+*.tgz
+package-lock.json
+HISTORY.md
+CHANGES.md
+MY-VERIFICATION.md
+artifacts/
+live-runs/

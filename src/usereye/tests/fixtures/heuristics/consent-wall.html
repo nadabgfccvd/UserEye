@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Consent wall fixture</title>
+<style>
+  body { font-family: system-ui; }
+  .layer { position: fixed; left: 0; right: 0; bottom: 0; height: 52vh;
+           background: #fff; border-top: 2px solid #333; padding: 24px; z-index: 5; }
+</style>
+</head>
+<body>
+  <main><h1>News portal</h1><p>Read the article.</p></main>
+  <section class="layer" role="dialog" aria-modal="true" data-rect="0,380,1440,520">
+    <h2>We use cookies</h2>
+    <p>We use cookies to personalise content and analyse traffic.</p>
+    <button data-rect="40,860,150,40">Accept all</button>
+    <button data-rect="210,860,150,40">Reject optional</button>
+  </section>
+</body>
+</html>

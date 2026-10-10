@@ -1,0 +1,7 @@
+node_modules
+artifacts
+coverage
+.git
+*.tgz
+verification
+tests/fixtures/**/artifacts

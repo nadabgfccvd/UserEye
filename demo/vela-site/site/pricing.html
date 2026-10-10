@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing — Vela Analytics</title>
+  <meta name="description" content="Simple per-editor pricing with generous ingest. Free tier, Team, and Business plans. No per-host surprises." />
+  <meta name="theme-color" content="#0e7a6e" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e7a6e'/%3E%3Cpath d='M9 22L16 8l7 14' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/assets/css/tokens.css" />
+  <link rel="stylesheet" href="/assets/css/layout.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <link rel="stylesheet" href="/assets/css/pricing-blog.css" />
+  <link rel="stylesheet" href="/assets/css/product-pages.css" />
+  <link rel="stylesheet" href="/assets/css/responsive.css" />
+  <script src="/assets/charts.js" defer></script>
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header" data-header>
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="Vela Analytics — home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <defs><linearGradient id="brandg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0e7a6e"/><stop offset="1" stop-color="#1d5fc2"/></linearGradient></defs>
+          <rect width="32" height="32" rx="9" fill="url(#brandg)"/>
+          <path d="M9 22 L16 8 L23 22" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 22 h8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        Vela&nbsp;Analytics
+      </a>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="/product">Product</a></li>
+          <li><a href="/pricing" aria-current="page">Pricing</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="icon-btn theme-toggle" data-theme-toggle aria-label="Switch to dark theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" data-demo-open aria-haspopup="dialog">Book a demo</button>
+        <button type="button" class="icon-btn nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" aria-labelledby="pricing-title" style="padding-bottom: 24px;">
+      <div class="container" style="text-align:center; max-width: 780px;">
+        <p class="eyebrow" style="justify-content:center;" data-reveal>Pricing</p>
+        <h1 id="pricing-title" data-reveal>Pay per editor, <span class="grad">not per surprise</span></h1>
+        <p class="hero-sub" style="margin-inline:auto;" data-reveal>
+          Every plan includes 100 GB of ingest per editor, 13-month retention and all signal
+          types. Read-only viewers are always free.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="plans-title" style="padding-top: 8px;">
+      <h2 id="plans-title" class="visually-hidden">Plans</h2>
+      <div class="container">
+        <div class="pricing-toolbar" data-reveal>
+          <button type="button" class="switch-label active" data-billing="monthly" id="billing-monthly-label">Monthly</button>
+          <span class="switch">
+            <input type="checkbox" id="billing-switch" role="switch" aria-labelledby="billing-monthly-label billing-annual-label" />
+            <span class="track" aria-hidden="true"></span>
+          </span>
+          <button type="button" class="switch-label" data-billing="annual" id="billing-annual-label">Annual</button>
+          <span class="save-badge">Save 20%</span>
+        </div>
+
+        <div class="tier-grid">
+          <article class="tier" data-reveal aria-labelledby="tier-free">
+            <h3 id="tier-free">Free</h3>
+            <p class="tier-desc">For side projects and trying Vela with real traffic.</p>
+            <p class="tier-price"><span class="amount">$0</span><span class="period">forever</span></p>
+            <p class="tier-note">1 editor included</p>
+            <ul class="tier-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>50 GB ingest / month</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>7-day retention</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Traces, metrics, logs &amp; RUM</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Community Slack support</li>
+            </ul>
+            <a class="btn btn-ghost" href="/contact">Start for free</a>
+          </article>
+
+          <article class="tier featured" data-reveal aria-labelledby="tier-team">
+            <h3 id="tier-team">Team</h3>
+            <p class="tier-desc">For product teams that own a service (or ten).</p>
+            <p class="tier-price"><span class="amount" data-monthly="29" data-annual="23">$29</span><span class="period">/ editor / mo</span></p>
+            <p class="tier-note" data-billing-note>per editor / month, billed monthly</p>
+            <ul class="tier-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>100 GB ingest per editor</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>13-month retention</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Anomaly Alerts v2</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Unlimited free viewers</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Email + Slack support (1 business day)</li>
+            </ul>
+            <a class="btn btn-primary" href="/contact">Start 14-day trial</a>
+          </article>
+
+          <article class="tier" data-reveal aria-labelledby="tier-biz">
+            <h3 id="tier-biz">Business</h3>
+            <p class="tier-desc">For platform groups with compliance and scale needs.</p>
+            <p class="tier-price"><span class="amount" data-monthly="79" data-annual="63">$79</span><span class="period">/ editor / mo</span></p>
+            <p class="tier-note" data-billing-note>per editor / month, billed monthly</p>
+            <ul class="tier-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Everything in Team</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>SSO / SAML &amp; SCIM</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>EU or US data residency</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Customer-managed keys</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>99.98% uptime SLA &amp; named CSM</li>
+            </ul>
+            <a class="btn btn-ghost" href="/contact">Talk to sales</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== COMPARISON TABLE ====================== -->
+    <section class="section" aria-labelledby="compare-title" style="background: var(--bg-alt); border-block: 1px solid var(--line);">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Compare</p>
+          <h2 id="compare-title">The full picture</h2>
+        </div>
+        <div class="compare-wrap" data-reveal tabindex="0" role="region" aria-label="Plan comparison table, scrollable">
+          <table class="compare-table">
+            <caption>Feature comparison across Free, Team and Business plans</caption>
+            <thead>
+              <tr>
+                <th scope="col">Feature</th>
+                <th scope="col">Free</th>
+                <th scope="col">Team</th>
+                <th scope="col">Business</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Monthly ingest</th><td>50 GB</td><td>100 GB / editor</td><td>250 GB / editor</td></tr>
+              <tr><th scope="row">Retention</th><td>7 days</td><td>13 months</td><td>13 months + archive</td></tr>
+              <tr><th scope="row">Traces, metrics, logs, RUM</th><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+              <tr><th scope="row">Anomaly Alerts v2</th><td class="no">—</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+              <tr><th scope="row">Session replay</th><td class="no">—</td><td class="yes">1k sessions / mo</td><td class="yes">Unlimited</td></tr>
+              <tr><th scope="row">SSO / SAML, SCIM</th><td class="no">—</td><td class="no">—</td><td class="yes">Included</td></tr>
+              <tr><th scope="row">Data residency (EU/US)</th><td class="no">—</td><td class="no">—</td><td class="yes">Included</td></tr>
+              <tr><th scope="row">Support</th><td>Community</td><td>1 business day</td><td>1 hour, named CSM</td></tr>
+              <tr><th scope="row">Uptime SLA</th><td class="no">—</td><td class="no">—</td><td class="yes">99.98%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ FAQ ============================= -->
+    <section class="section" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-head center" data-reveal>
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title">Questions, answered honestly</h2>
+        </div>
+        <div class="faq" data-reveal>
+          <details>
+            <summary>What counts as an “editor”?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="faq-body">Anyone who creates dashboards, alerts or queries. Viewers who
+              only look at dashboards and get paged by alerts are free and unlimited on every plan.</p>
+          </details>
+          <details>
+            <summary>What happens if we exceed our ingest?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="faq-body">Nothing breaks and nothing is silently dropped. We keep
+              ingesting, tell you within the hour, and bill overage at $0.20/GB — or you can set a
+              hard cap in the workspace settings.</p>
+          </details>
+          <details>
+            <summary>Can we self-host Vela?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="faq-body">Yes — the Business plan includes a Kubernetes Helm chart for a
+              fully air-gapped deployment, with the same feature set as the cloud.</p>
+          </details>
+          <details>
+            <summary>Do you discount for startups and non-profits?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="faq-body">50% off the first year for companies under 20 people and
+              registered non-profits. <a href="/contact">Email us</a> from your work address.</p>
+          </details>
+          <details>
+            <summary>How is Vela cheaper than the incumbents?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="faq-body">Columnar storage plus a Rust query core means we index less and
+              compress harder. We pass the infrastructure savings on instead of charging per host,
+              per span and per dashboard seat.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="pricing-cta-title">
+      <div class="container">
+        <div class="cta-band" data-reveal>
+          <h2 id="pricing-cta-title">Still unsure? Talk to an engineer.</h2>
+          <p class="section-sub">Not a salesperson — an actual product engineer who will estimate
+            your ingest and tell you if we're the wrong tool.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary btn-lg" href="/contact">Contact us</a>
+            <button type="button" class="btn btn-ghost btn-lg" data-demo-open aria-haspopup="dialog">Book a demo</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="/" aria-label="Vela Analytics — home">
+            <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+              <rect width="32" height="32" rx="9" fill="#0e7a6e"/>
+              <path d="M9 22 L16 8 L23 22" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 22 h8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+            </svg>
+            Vela&nbsp;Analytics
+          </a>
+          <p>Observability for modern product teams. Built in Lisbon and Berlin, run everywhere you are.</p>
+          <div class="social">
+            <a href="https://github.com/" aria-label="Vela on GitHub (external)" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></a>
+            <a href="https://www.linkedin.com/" aria-label="Vela on LinkedIn (external)" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4V9z"/></svg></a>
+            <a href="https://x.com/" aria-label="Vela on X (external)" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.9-6.4L6.5 22H3.4l7.24-8.28L2 2h6.4l4.42 5.85L18.9 2zm-1.1 18h1.73L7.02 3.9H5.17L17.8 20z"/></svg></a>
+          </div>
+        </div>
+        <nav aria-labelledby="footer-product"><h2 class="footer-heading" id="footer-product">Product</h2>
+          <ul class="footer-links"><li><a href="/product#features">Features</a></li><li><a href="/product#demo">Live demo</a></li><li><a href="/product#integrations">Integrations</a></li><li><a href="/pricing">Pricing</a></li></ul></nav>
+        <nav aria-labelledby="footer-company"><h2 class="footer-heading" id="footer-company">Company</h2>
+          <ul class="footer-links"><li><a href="/about">About us</a></li><li><a href="/blog">Blog</a></li><li><a href="/about#careers">Careers</a></li><li><a href="/contact">Contact</a></li></ul></nav>
+        <nav aria-labelledby="footer-resources"><h2 class="footer-heading" id="footer-resources">Resources</h2>
+          <ul class="footer-links"><li><a href="/blog/scaling-observability-to-10-trillion-events">Engineering guide</a></li><li><a href="/blog?tag=changelog">Changelog</a></li><li><a href="/legal#security">Security</a></li><li><a href="/legal">Status &amp; SLA</a></li></ul></nav>
+        <nav aria-labelledby="footer-legal"><h2 class="footer-heading" id="footer-legal">Legal</h2>
+          <ul class="footer-links"><li><a href="/legal#privacy">Privacy</a></li><li><a href="/legal#terms">Terms</a></li><li><a href="/legal#dpa">DPA</a></li></ul></nav>
+      </div>
+      <div class="footer-bottom">
+        <p style="margin:0;">© <span id="year">2026</span> Vela Analytics, Lda. — a fictional demo site built to test UserEye.</p>
+        <span class="status-pill">All systems operational</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookie-banner" role="region" aria-label="Cookie consent" hidden>
+    <p><b>We value your privacy</b> This demo site uses only functional local storage (theme &amp; cookie preference). No trackers, ever.</p>
+    <div class="cookie-actions">
+      <button type="button" class="btn btn-primary btn-sm" data-cookie-accept>Accept</button>
+      <button type="button" class="btn btn-ghost btn-sm" data-cookie-decline>Decline</button>
+    </div>
+  </div>
+</body>
+</html>

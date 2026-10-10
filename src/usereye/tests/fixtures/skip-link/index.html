@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Skip-link touch fixture</title>
+  <style>
+    body { font-family: system-ui; margin: 0; }
+    /* First focusable control in the DOM, parked off-viewport for keyboard users. */
+    .skip-link {
+      position: absolute;
+      left: 12px;
+      top: -60px;
+      padding: 10px 16px;
+      background: #4338ca;
+      color: #fff;
+    }
+    .skip-link:focus { top: 12px; }
+    main { padding: 40px 20px; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <main id="main">
+    <h1>Skip-link fixture</h1>
+    <p>The first touch candidate is parked above the viewport; the real tappable control is below.</p>
+    <button id="tap-me" type="button">Tap me</button>
+  </main>
+</body>
+</html>

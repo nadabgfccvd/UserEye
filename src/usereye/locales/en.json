@@ -1,0 +1,360 @@
+{
+  "language": "en",
+  "report": "UserEye report",
+  "run": "Run",
+  "statusPassed": "PASSED",
+  "statusFailed": "FAILED",
+  "summary": "Summary",
+  "scope": "Scope and environment",
+  "adaptive": "Adaptive exploration",
+  "protocols": "Concurrent protocols",
+  "codeQuality": "Code quality",
+  "issues": "Prioritized findings",
+  "journey": "Executed journey",
+  "perception": "Visual perception",
+  "patience": {
+    "moodCalm": "Calm",
+    "moodCalmDesc": "The experience responds predictably and conveys control.",
+    "moodAttentive": "Attentive",
+    "moodAttentiveDesc": "Small frictions were perceived, but the user still trusts the flow.",
+    "moodImpatient": "Impatient",
+    "moodImpatientDesc": "Delays or failures start to demand effort and repetition.",
+    "moodFrustrated": "Frustrated",
+    "moodFrustratedDesc": "The experience presents enough friction to cause partial abandonment.",
+    "moodAbandonment": "Abandonment risk",
+    "moodAbandonmentDesc": "The user will probably end the flow or look for another solution.",
+    "controlFallback": "control",
+    "noFeedback": "Action without detectable visual confirmation",
+    "feedback3000": "First feedback only after {ms} ms",
+    "feedback1000": "First feedback after {ms} ms",
+    "feedback300": "Perceptible feedback took {ms} ms",
+    "feedback100": "Feedback was not instant ({ms} ms)",
+    "settle": "Action took {ms} ms to settle",
+    "waitNoLoader": "Wait of {ms} ms without a loading indicator",
+    "loaderLate": "Loading indicator appeared late ({ms} ms)",
+    "rageClicks": "Three quick clicks without a clear response on “{name}”",
+    "httpError": "HTTP {status}",
+    "httpErrorFallback": "error",
+    "misclickHarmful": "caused an effect",
+    "misclickConfusing": "had a confusing result",
+    "misclickPenalty": "Misclick {adjective}: {effect}",
+    "disclaimer": "UX heuristic based on latency, feedback, loading, errors and misclicks; it does not measure real human emotions."
+  },
+  "patienceLabel": "Patience",
+  "accessibility": "Accessibility",
+  "telemetry": "Browser telemetry",
+  "artifacts": "Reproducible artifacts",
+  "evidence": "Visual evidence",
+  "steps": "Steps",
+  "passed": "Passed",
+  "failed": "Failed",
+  "warnings": "Warnings",
+  "checks": "Checks",
+  "interactions": "Interactions",
+  "observations": "Observations",
+  "findings": {
+    "visible-hidden-elements": {
+      "title": "Elements marked hidden are visible",
+      "actual": "{count} element(s) marked hidden remain rendered."
+    },
+    "horizontal-overflow": {
+      "title": "The page has unexpected horizontal scrolling",
+      "actual": "{px} px beyond the viewport width."
+    },
+    "duplicate-ids": {
+      "title": "Duplicate IDs can break labels and controls",
+      "actual": "{count} duplicated ID(s)."
+    },
+    "multiple-visible-dialogs": {
+      "title": "More than one dialog is visible",
+      "actual": "{count} dialogs visible at the same time."
+    },
+    "nameless-controls": {
+      "title": "Interactive controls without an accessible name",
+      "actual": "{count} control(s) without a name."
+    },
+    "occluded-controls": {
+      "title": "Visible controls are blocked by other elements",
+      "actual": "{count} control(s) fail the center hit-test."
+    },
+    "clipped-controls": {
+      "title": "Controls partially clipped by the viewport",
+      "actual": "{count} control(s) partially outside the visible area."
+    },
+    "small-touch-targets": {
+      "title": "Touch targets smaller than recommended",
+      "actual": "{count} control(s) smaller than {touch}×{touch}px."
+    },
+    "insufficient-contrast": {
+      "title": "Visible text below WCAG AA contrast",
+      "actual": "{count} snippet(s) with insufficient contrast."
+    },
+    "broken-images": {
+      "title": "Visible images failed to load",
+      "actual": "{count} broken image(s)."
+    },
+    "unlabeled-fields": {
+      "title": "Fields without an accessible name",
+      "actual": "{count} field(s) without a perceptible label."
+    },
+    "heading-order-skip": {
+      "title": "Heading order skips levels",
+      "actual": "Observed sequence: {seq}."
+    },
+    "missing-lang": {
+      "title": "The document does not declare its language",
+      "actual": "html[lang] is empty; screen readers and machine translation lose their anchor."
+    },
+    "visible-aria-hidden": {
+      "title": "aria-hidden elements remain visible",
+      "actual": "{count} element(s) hidden from assistive technology still occupy the screen."
+    },
+    "text-overflow": {
+      "title": "Visible text is clipped",
+      "actual": "{count} snippet(s) overflow their own container."
+    },
+    "consent-wall": {
+      "title": "Cookie/consent wall covers the first fold",
+      "actual": "{count} consent panel(s) occupy the screen."
+    },
+    "scroll-trap": {
+      "title": "The page seems trapped: content exists beyond the fold but overflow is locked",
+      "actual": "scrollHeight={scrollHeight}px with overflow hidden."
+    },
+    "sticky-overlap": {
+      "title": "Fixed header covers the first heading",
+      "actual": "The heading hit-test lands on the sticky/fixed bar."
+    },
+    "fake-controls": {
+      "title": "Clickable elements without a control role",
+      "actual": "{count} element(s) look like buttons but lack role/button/link."
+    },
+    "focus-not-visible": {
+      "title": "Controls without a visible focus ring",
+      "actual": "{count}/{total} sampled control(s) without outline/box-shadow on focus."
+    },
+    "placeholder-as-label": {
+      "title": "Placeholder used as the only label",
+      "actual": "{count} field(s) only have a placeholder."
+    },
+    "error-not-associated": {
+      "title": "Error message not associated with the field",
+      "actual": "{count} alert(s) not linked via aria-describedby/errormessage."
+    },
+    "autofocus-abuse": {
+      "title": "Autofocus outside a useful field",
+      "actual": "Initial focus on {tag}#{id}."
+    },
+    "missing-autocomplete": {
+      "title": "Identity/password fields without autocomplete",
+      "actual": "{count} field(s) make browser autofill harder."
+    },
+    "missing-tab-title": {
+      "title": "The tab has no title",
+      "actual": "document.title is empty."
+    },
+    "missing-favicon": {
+      "title": "The tab has no favicon",
+      "actual": "No link rel=icon found."
+    },
+    "hover-only-content": {
+      "title": "Essential information only appears on hover",
+      "actual": "{count} control(s) depend on title/tooltip."
+    },
+    "hitbox-mismatch": {
+      "title": "The clickable area is much larger than the control drawing",
+      "actual": "{count} target(s) with an inflated hit-box."
+    },
+    "mixed-language": {
+      "title": "The first fold mixes languages",
+      "actual": "Portuguese signals={ptHits} and English signals={enHits} in the visible text."
+    },
+    "empty-click-region": {
+      "title": "Huge, almost empty clickable zone",
+      "actual": "{count} region(s) occupy the fold without useful text."
+    },
+    "modal-without-close": {
+      "title": "Visible dialog without an obvious close control",
+      "actual": "{count} modal(s) without a close button."
+    },
+    "eternal-skeleton": {
+      "title": "Loading indicator still visible after the document completes",
+      "actual": "{count} loading indicator(s) remain after readyState=complete without the accepted progress semantics (valid aria-valuenow/range, aria-valuemax defaults to 100, and at least 4% measurable progress)."
+    },
+    "decorative-aria-hidden": {
+      "title": "Decorative aria-hidden content in a named control (accepted pattern)",
+      "actual": "{count} decorative element(s) are hidden from assistive technology while their parent control supplies the accessible name."
+    },
+    "screen-reader-only-clipping": {
+      "title": "Screen-reader-only text uses intentional clipping (accepted pattern)",
+      "actual": "{count} element(s) match a standard sr-only/visually-hidden clipping technique."
+    },
+    "complementary-tooltip": {
+      "title": "Tooltip complements an accessible name (accepted pattern)",
+      "actual": "{count} control(s) expose an accessible name without depending on the title/tooltip."
+    }
+  },
+  "browserErrors": "Unexpected browser errors",
+  "score": "Score",
+  "coverage": "Coverage",
+  "states": "Unique states",
+  "urls": "Unique URLs",
+  "selected": "Selected",
+  "skipped": "Skipped",
+  "workers": "Workers",
+  "duration": "Duration",
+  "severity": "Severity",
+  "finding": "Finding",
+  "expected": "Expected",
+  "observed": "Observed",
+  "step": "Step",
+  "noIssues": "No confirmed findings.",
+  "noData": "No data recorded.",
+  "application": "Application",
+  "browser": "Browser",
+  "viewport": "Viewport",
+  "locale": "Locale",
+  "timezone": "Timezone",
+  "mode": "Mode",
+  "qualityGates": "Quality gates",
+  "protocol": "Protocol",
+  "category": "Category",
+  "status": "Status",
+  "details": "Details",
+  "violations": "Violations",
+  "console": "Console errors",
+  "pageErrors": "Page errors",
+  "network": "Request failures",
+  "http": "HTTP errors",
+  "screenshot": "Screenshot",
+  "embedLimitNote": "{linked} screenshot(s) linked to files next to this report instead of embedded (report.embedLimit: {limit} KB).",
+  "blocker": "Blocker",
+  "critical": "Critical",
+  "major": "Major",
+  "minor": "Minor",
+  "tool": "Tool",
+  "runner": "Runner",
+  "resultJson": "Result JSON",
+  "copyIssue": "Copy GitHub issue",
+  "findingsLabel": "Findings",
+  "stopReason": "Stop reason",
+  "confidence": "Confidence",
+  "actionable": "Actionable (high)",
+  "review": "Review (med/low)",
+  "high": "High",
+  "medium": "Medium",
+  "low": "Low",
+  "kind": "Kind",
+  "new": "New",
+  "resolved": "Resolved",
+  "persistent": "Persistent",
+  "regression": "Regression vs baseline",
+  "scoreDelta": "Score delta",
+  "scan": {
+    "title": "Title: {text}",
+    "obviousAction": "Obvious action: {name}",
+    "fieldInView": "Field in view: {name}",
+    "competingCtas": "{count} calls to action compete in the first fold",
+    "fieldFallback": "input"
+  },
+  "gaze": {
+    "reasonActions": "{count} visible actions in the first fold",
+    "reasonFields": "{count} fields demand immediate attention",
+    "reasonTextWall": "Text wall: about {count} words above the fold",
+    "reasonNoHeadline": "No clear title to anchor the gaze",
+    "reasonNoPrimaryCta": "Several actions, none stands out as the obvious path",
+    "reasonCompetingCtas": "{count} calls to action compete with each other",
+    "reasonNoLang": "The document does not declare the page language",
+    "reasonPasswordNoHttps": "Password field on a page without HTTPS",
+    "loadLight": "Light",
+    "loadModerate": "Moderate",
+    "loadHeavy": "Heavy",
+    "loadOverwhelming": "Overwhelming",
+    "narrativeHeadline": "On open, the gaze falls on “{headline}”.",
+    "narrativeNoHeadline": "The first screen offers no clear title; the user must scan the fold to orient themselves.",
+    "narrativeCta": "The most obvious path is “{cta}”.",
+    "narrativeActions": "There are {count} visible control(s), but none imposes itself as the next step.",
+    "narrativeNoAction": "There is no evident action in the first fold.",
+    "narrativeCompeting": "Competing for attention: {names}.",
+    "narrativeWords": "The immediate read has about {count} word(s).",
+    "narrativeLoad": "Cognitive load: {label} ({score}/100).",
+    "narrativePasswordNoHttps": "A password field appears without HTTPS — this reduces trust.",
+    "purposeAuthenticate": "Sign in or unlock access",
+    "purposeRegister": "Create the first access",
+    "purposeCheckout": "Complete a payment",
+    "purposeOverview": "Understand the current state and choose a destination",
+    "purposeConfigure": "Adjust preferences",
+    "purposeCompleteForm": "Fill and submit the visible form",
+    "purposeExplore": "Understand the product and find the next step",
+    "goalFillFields": "Fill the visible fields without guessing their meaning",
+    "goalChooseSafely": "Choose the right action without triggering a destructive path"
+  },
+  "plan": {
+    "read": "Read “{headline}”",
+    "readWhy": "It is the visual anchor of the first fold.",
+    "scan": "Scan the first fold looking for a title",
+    "scanWhy": "Without a clear heading, the user must improvise orientation.",
+    "fill": "Fill “{name}”",
+    "fillWhy": "There is visible input before the main action.",
+    "fieldFallback": "the first field",
+    "auth": "Look for identity and password",
+    "authWhy": "The screen was classified as authentication.",
+    "confirm": "Confirm what the screen offers",
+    "confirmWhy": "There is no obvious field yet; the user reads the rest of the fold.",
+    "click": "Click “{cta}”",
+    "clickWhy": "It is the call to action with the greatest visual weight.",
+    "seek": "Look for a path forward",
+    "seekWhy": "No CTA stands out; abandonment risk rises."
+  },
+  "misclick": {
+    "effectNavigation": "unexpected navigation",
+    "effectDialog": "dialog changed",
+    "effectAlert": "alert/toast changed",
+    "effectHit": "hit {name}",
+    "effectOutsideActivated": "the outside area still activated the target",
+    "effectVisual": "visual state changed",
+    "effectNone": "No observable consequence.",
+    "issueTitle": "Misclick {point} around “{name}”",
+    "issueExpected": "A click outside the target must not trigger controls or change the flow.",
+    "controlFallback": "control",
+    "destructiveSkip": "Potentially destructive neighbor; click not executed."
+  },
+  "issue": {
+    "visualPerceptionExpected": "The rendered interface does not present this problem.",
+    "elementVisibleExpected": "Element is visible to the user.",
+    "elementVisiblePass": "Element is visible.",
+    "elementVisibleFail": "Element is missing or invisible.",
+    "flowExpected": "The flow completes without an automation exception or interface error.",
+    "verificationExpected": "The verification passes.",
+    "verificationFailed": "The verification failed.",
+    "axeExpected": "No violation of axe rule “{id}”.",
+    "axeAffected": "{count} affected element(s).",
+    "firstImpression": "First impression",
+    "contrastSiblingOverlayHint": "Possible root cause: a positioned sibling ({overlay}) is painted behind {target}. axe does not use sibling overlays as the text background; it measured {ancestor} ({background}). Give the element containing the text its own background-color, or verify contrast against the measured ancestor."
+  },
+  "stepNames": {
+    "openTarget": "Open target application",
+    "adaptiveExploration": "Adaptive exploration — {mode}",
+    "concurrentProtocols": "Concurrent protocols — {mode}",
+    "codeQualityFloor": "Code quality and final quality floor"
+  },
+  "gateLabels": {
+    "initialState": "Initial state observed",
+    "browserTelemetry": "Browser telemetry active",
+    "stateDedup": "States deduplicated by fingerprint",
+    "responsive": "Responsive audit completed",
+    "axePerState": "Accessibility executed once per unique state",
+    "destructive": "Destructive actions blocked or explicitly authorized",
+    "auth": "Authentication handled explicitly",
+    "misclickSample": "Risk-based misclick sample",
+    "firstImpression": "User first impression captured",
+    "parallelProtocols": "Concurrent protocols completed without failure",
+    "codeQuality": "Linting and code structure",
+    "budgetCoverage": "Mode coverage ≥ {target}%"
+  },
+  "weight": "Weight",
+  "opinions": "Perception heuristics (opinion)",
+  "opinionsIntro": "Recognized intentional patterns are recorded for transparency, but are not treated as defects or CI failures.",
+  "acceptedPattern": "Accepted pattern",
+  "noOpinions": "No opinionated heuristics recorded."
+}

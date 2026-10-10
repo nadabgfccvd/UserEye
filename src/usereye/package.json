@@ -1,0 +1,110 @@
+{
+  "name": "usereye",
+  "version": "7.5.1",
+  "private": false,
+  "description": "Project-agnostic browser perception, accessibility and safe exploratory testing for any web application",
+  "main": "index.js",
+  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "require": "./index.js",
+      "default": "./index.js"
+    },
+    "./user-eye": "./user-eye.js",
+    "./config": "./config.js",
+    "./patterns": "./patterns/index.js",
+    "./adaptive-explorer": "./adaptive-explorer.js",
+    "./artifact-store": "./artifact-store.js",
+    "./dashboard": "./dashboard.js",
+    "./execution-plan": "./execution-plan.js",
+    "./issue-export": "./issue-export.js",
+    "./plugins": "./plugins.js",
+    "./protocol-runner": "./protocol-runner.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "usereye": "bin/usereye.js"
+  },
+  "files": [
+    "*.js",
+    "bin/",
+    "review-modes/",
+    "protocols/",
+    "patterns/",
+    "locales/",
+    "types/",
+    "README.md",
+    "HISTORY.md",
+    "SECURITY.md",
+    "LICENSE",
+    "docs/API.md",
+    "docs/CONFIG.md",
+    "docs/HEURISTICS.md",
+    "docs/PLUGINS.md",
+    "docs/usereye.config.schema.json",
+    "action.yml",
+    "Dockerfile"
+  ],
+  "scripts": {
+    "observe": "node bin/usereye.js observe",
+    "auto": "node bin/usereye.js auto",
+    "analyze": "node bin/usereye.js analyze",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit -p types/tsconfig.json",
+    "test": "node --test tests/*.test.js",
+    "test:smoke": "node --test tests/smoke.test.js",
+    "test:engine": "node --test tests/engine.test.js tests/multi-browser.test.js",
+    "test:coverage": "node scripts/check-coverage.js",
+    "test:benchmark": "node --test tests/benchmark.test.js",
+    "checks": "node scripts/sync-version.js && node scripts/check-api-surface.js && node scripts/check-readme-examples.js && node scripts/check-playwright-version.js && node scripts/check-package.js && node scripts/check-delivery-names.js && node scripts/check-dependencies.js && node scripts/generate-config-docs.js --check && node scripts/generate-api-docs.js --check",
+    "docs:config": "node scripts/generate-config-docs.js",
+    "docs:api": "node scripts/generate-api-docs.js",
+    "docs": "npm run docs:config && npm run docs:api",
+    "doctor": "node bin/usereye.js doctor",
+    "self-test": "node bin/usereye.js --self-test",
+    "verify:delivery": "node scripts/pack-delivery.js --refresh-only",
+    "pack:delivery": "node scripts/pack-delivery.js",
+    "pack:npm": "node scripts/pack-delivery.js --npm-only",
+    "verify:release": "node scripts/verify-release.js",
+    "release": "npm run verify && npm run verify:delivery && npm run pack:delivery && npm run verify:release",
+    "verify": "npm run lint && npm run format:check && npm run typecheck && npm test && npm run checks && npm run test:coverage",
+    "changeset": "changeset",
+    "version-packages": "changeset version && node scripts/sync-version.js",
+    "postinstall": "node bin/postinstall.js",
+    "prepack": "npm test"
+  },
+  "keywords": [
+    "playwright",
+    "accessibility",
+    "a11y",
+    "visual-testing",
+    "exploratory-testing",
+    "user-journey",
+    "e2e"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "engines": {
+    "node": ">=20.11"
+  },
+  "dependencies": {
+    "axe-core": "4.13.0",
+    "playwright": "1.63.0"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.1",
+    "@types/node": "^20.19.43",
+    "eslint": "^10.8.1",
+    "globals": "^17.9.0",
+    "jsdom": "^29.1.1",
+    "prettier": "^3.9.6",
+    "typescript": "^7.0.2"
+  }
+}

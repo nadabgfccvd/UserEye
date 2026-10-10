@@ -1,0 +1,150 @@
+/* Vela Analytics — responsive.css (part of the design system; load order matters: tokens → layout → components → pricing-blog → product-pages → responsive) */
+/* ---------- Responsive ---------- */
+@media (max-width: 1020px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .integration-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .article-layout {
+    grid-template-columns: 1fr;
+  }
+  .toc {
+    position: static;
+    border-left: none;
+    border-bottom: 1px solid var(--line);
+    padding: 0 0 16px;
+  }
+}
+
+@media (max-width: 900px) {
+  .nav-toggle {
+    display: inline-flex;
+  }
+  .site-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
+    display: none;
+    padding: 12px 20px 18px;
+  }
+  .site-header.open .site-nav {
+    display: block;
+  }
+  .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+  .nav-list a {
+    padding: 13px 14px;
+    border-radius: var(--radius-sm);
+  }
+  .header-actions .btn-primary {
+    display: none;
+  }
+  .hero-inner,
+  .split {
+    grid-template-columns: 1fr;
+  }
+  .tier-grid,
+  .post-grid,
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+  .post-card.featured-post {
+    grid-template-columns: 1fr;
+  }
+  .post-card.featured-post .post-thumb {
+    min-height: 170px;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .grid-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  .dash-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  body {
+    font-size: 16px;
+  }
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .grid-6 {
+    grid-template-columns: 1fr;
+  }
+  .integration-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .newsletter-form {
+    flex-direction: column;
+  }
+  .blog-search {
+    margin-left: 0;
+    width: 100%;
+  }
+  .blog-search .input {
+    min-width: 0;
+  }
+  .mock-kpis {
+    grid-template-columns: 1fr;
+  }
+  .cookie-banner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html.js-reveal [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  .site-header,
+  .site-footer,
+  .cookie-banner,
+  .hero-ctas,
+  .progress-bar {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+}
+

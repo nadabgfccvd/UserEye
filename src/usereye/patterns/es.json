@@ -1,0 +1,55 @@
+{
+  "auth": ["iniciar sesi\\u00f3n", "inicia sesi\\u00f3n", "acceder", "entrar", "continuar", "desbloquear"],
+  "authPage": ["iniciar sesi\\u00f3n", "acceder", "entrar", "contrase\\u00f1a", "desbloquear"],
+  "setupPage": ["registr", "reg\\u00edstrate", "crear cuenta", "primer acceso", "configur"],
+  "dangerous": [
+    "eliminar",
+    "borrar",
+    "suprimir",
+    "cerrar sesi\\u00f3n",
+    "salir",
+    "bloquear",
+    "comprar",
+    "pagar",
+    "pago",
+    "cerrar cuenta"
+  ],
+  "write": [
+    "nuevo",
+    "nueva",
+    "a\\u00f1adir",
+    "agregar",
+    "crear",
+    "guardar",
+    "editar",
+    "enviar",
+    "adjuntar",
+    "publicar"
+  ],
+  "navigation": [
+    "men\\u00fa",
+    "configuraci\\u00f3n",
+    "perfil",
+    "inicio",
+    "panel",
+    "volver",
+    "atr\\u00e1s",
+    "siguiente",
+    "pesta\\u00f1a"
+  ],
+  "utility": [
+    "buscar",
+    "b\\u00fasqueda",
+    "filtrar",
+    "copiar",
+    "mostrar",
+    "ocultar",
+    "generar",
+    "cerrar",
+    "cancelar"
+  ],
+  "skipLink": ["saltar", "ir al contenido", "contenido"],
+  "copy": ["copiar"],
+  "errorPage": ["error", "fallo", "no encontrado", "no disponible", "no encontrada"],
+  "emptyPage": ["vac\\u00edo", "sin datos", "sin resultados", "ning\\u00fan elemento"]
+}

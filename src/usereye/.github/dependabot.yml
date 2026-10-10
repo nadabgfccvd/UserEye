@@ -1,0 +1,47 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+    groups:
+      # Playwright is pinned exactly (package.json + lockfile + Dockerfile tag are
+      # verified together by scripts/check-playwright-version.js), so it must be
+      # updateable in one atomic PR.
+      playwright:
+        patterns:
+          - 'playwright'
+          - 'playwright-core'
+          - '@playwright/*'
+      dev-tooling:
+        patterns:
+          - 'eslint*'
+          - '@eslint/*'
+          - 'prettier*'
+          - 'typescript'
+          - '@types/*'
+          - 'globals'
+          - 'jsdom'
+          - '@changesets/*'
+    ignore:
+      # Never auto-bump Playwright across minors without the Docker tag moving too.
+      - dependency-name: 'playwright'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: docker
+    directory: '/'
+    schedule:
+      interval: weekly
+    groups:
+      playwright-image:
+        patterns:
+          - 'mcr.microsoft.com/playwright*'
+
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns:
+          - '*'

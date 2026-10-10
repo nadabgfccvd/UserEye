@@ -1,0 +1,12 @@
+# release artifacts produced by `npm run pack:delivery` / `pack:npm`
+dist/
+
+# runtime output
+node_modules/
+artifacts/
+coverage/
+*.tgz
+.env
+.auth/
+live-runs/
+*.log

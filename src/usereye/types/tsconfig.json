@@ -1,0 +1,15 @@
+{
+  "$comment": "Type gate for the published .d.ts surface (roadmap items 0.3 / 2.2). Run: npm run typecheck",
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": ["node"],
+    "skipLibCheck": false,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["./**/*.d.ts"]
+}

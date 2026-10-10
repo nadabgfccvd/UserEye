@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Focus reveal fixture</title>
+<style>
+  body { font-family: system-ui; padding: 40px; }
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: 12px; top: 12px; }
+  #data-skip-reveal { display: none; border: 2px solid #333; padding: 12px; }
+</style>
+</head>
+<body data-rect="0,0,1440,900">
+  <a class="skip" href="#main" id="skip">Skip to knowledge base</a>
+  <main id="main" data-rect="0,0,1440,900">
+    <h1>Focus reveal fixture</h1>
+    <p>Focusing the skip link lazy-renders a helper panel: a material-only change
+       that aggressive misclick policy treats as harmful and stable-only as confusing.</p>
+    <button id="cta" data-rect="40,200,180,48">Open full text</button>
+  </main>
+  <script>
+    // The heuristic under test: focus reveals UI that was not in the page.
+    document.getElementById('skip').addEventListener('focus', function () {
+      var panel = document.createElement('section');
+      panel.setAttribute('aria-label', 'Quick help');
+      panel.id = 'panel';
+      panel.textContent = 'Quick help: use arrow keys to navigate.';
+      panel.setAttribute('data-rect', '40,120,600,64');
+      document.body.appendChild(panel);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+node_modules/
+artifacts/
+coverage/
+*.tgz
+.env
+.auth/
+live-runs/
+
+# matrix fixture run output
+tests/fixtures/matrix/out/

@@ -1,0 +1,10 @@
+{
+  "durationMs": 2395,
+  "states": 2,
+  "actions": 4,
+  "measuredAt": "2026-09-05T20:44:18.313Z",
+  "node": "v20.20.2",
+  "platform": "linux x64",
+  "usereye": "7.1.0",
+  "note": "quick-mode adaptive exploration of tests/fixtures/static, chromium headless, video off, axe on"
+}
