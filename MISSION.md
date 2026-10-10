@@ -17,14 +17,18 @@
 
 - Layout convencional: `src/usereye/` (pacote) · `demo/` (harness) · `docs/` (repositório) · `tests/` (relatórios reais) · `scripts/`.
 - Zip de entrega arquivado na tag `v7.5.1-zip`; git passou a ser a fonte da verdade.
-- Roadmap permanente na raiz com marcos M0–M6 e governança trimestral.
+- Roadmap permanente na raiz com marcos M0–M12 (cadência mensal) e governança trimestral anexada aos marcos de fim de trimestre.
 
 ## Próximas ações (na ordem)
 
-1. **M1 (30/nov/2026):** GitHub Actions + publicação npm + SARIF no code scanning — issues #1, #2.
-2. **M2 (31/jan/2027):** registry de benchmarks de latência/memória em CI — issue #3.
-3. **M3 (31/mar/2027):** MCP server para agentes de IA — issue #4.
-4. Depois: visual regression local-first (#5), WCAG 2.2 AA mapping (#6).
+1. **M1 (30/nov/2026):** GitHub Actions com matriz Node 20/22/24 — issue #1.
+2. **M2 (31/dez/2026):** publicação npm + metadados + SARIF no code scanning — issue #2.
+3. **M3 (31/jan/2027):** registry de benchmarks de latência/memória em CI — issue #3.
+4. **M4 (28/fev/2027):** Firefox na matriz de CI — issue #7.
+5. **M5–M6 (mar–abr/2027):** MCP server alpha → GA para agentes de IA — issue #4.
+6. Depois: regressão visual local-first (M7/#5), WCAG 2.2 AA mapping (M8/#6), posicionamento (M9/#8), performance (M10), plugins (M11), revisão anual (M12).
+
+O roadmap completo (M0–M12, critérios de aceite, dependências) está em [`ROADMAP.md`](ROADMAP.md).
 
 ## Como um agente futuro deve trabalhar aqui
 

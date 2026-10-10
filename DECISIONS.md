@@ -61,7 +61,7 @@
 
 - **Decisão:** continuar sobre Playwright; monitorar WebDriver BiDi (W3C) trimestralmente.
 - **Contexto:** pesquisa de 2026-10-10 — BiDi ainda não cobre tudo que o engine usa (tracing, permissions, CDP-specific probes); Puppeteer usa BiDi p/ Firefox, Selenium empurra a spec.
-- **Rationale:** custo de reescrita alto vs. ganho hoje zero (Playwright já dá cross-browser); reavaliar no M6 (out/2027) ou antes se BiDi atingir paridade de features usadas.
+- **Rationale:** custo de reescrita alto vs. ganho hoje zero (Playwright já dá cross-browser); reavaliar no M12 (out/2027, âncora anual) ou antes se BiDi atingir paridade de features usadas.
 - **Alternativas descartadas:** camada de abstração dupla (CDP+BiDi) agora — complexidade sem demanda real.
 
 ## D-010 · 2026-10-10 · Pesquisa e issues como artefatos versionados
@@ -69,3 +69,11 @@
 - **Decisão:** a pesquisa profunda de mercado/tecnologia de 2026-10-10 vive em `docs/RESEARCH-2026-10.md`; prioridades dela viraram issues #1–#8 e o resumo está no §4 do ROADMAP.
 - **Rationale:** pesquisa que não vira issue nem doc morre no chat; versionada, ela é auditável e reutilizável na revisão trimestral.
 - **Alternativas descartadas:** só issues sem doc — perde contexto e fontes.
+
+## D-011 · 2026-10-10 · Expansão do roadmap para M0–M12 com cadência mensal
+
+- **Decisão:** substituir a tabela de 7 marcos (M0–M6) por 13 marcos (M0–M12) em cadência ~mensal dentro da mesma janela de 12 meses (out/2026 → out/2027); revisões trimestrais anexadas aos marcos de fim de trimestre (M3/M6/M9/M12); M12 como âncora anual inegociável.
+- **Contexto:** revisão 1 tinha blocos grandes e espaçados (M1 concentrava CI+publicação+SARIF; meses sem marco nenhum), o que dificulta rastreio mensal por agentes e humanos.
+- **Rationale:** (a) granularidade mensal torna slip visível em dias, não trimestres; (b) M1 dividido em CI (M1) e publicação (M2) separa infraestrutura de release — publicar sem CI é "release às cegas"; (c) escopo novo de segunda metade preenche lacunas estratégicas: MCP GA (M6), posicionamento/descoberta (M9), performance/escala (M10, aproveita `parallel-scheduler.js` existente) e ecossistema de plugins (M11, aproveita `plugins.js`); (d) 2 objetivos novos (O7, O8) formalizam esse escopo.
+- **Efeitos colaterais gerenciados:** issues #1–#8 re-mapeadas aos novos marcos (bodies atualizadas via API); MISSION.md e docs/PRIORITIES.md sincronizados no mesmo commit.
+- **Alternativas descartadas:** (a) manter M0–M6 e só acrescentar M7–M12 no ano 2 — misturaria dois horizontes com granularidades diferentes e adiaría escopo estratégico para além da janela de 12 meses; (b) roadmap sem datas — perde o valor de âncora e a governança de slip.
