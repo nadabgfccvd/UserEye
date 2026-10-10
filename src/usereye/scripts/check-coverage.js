@@ -88,19 +88,43 @@ const OVERALL_FLOOR = 45;
 function parseCoverage(stdout) {
   const entries = new Map();
   let overall = null;
+  // Fix 2026-10-10: Node >= 24 renders the coverage table as a TREE — directory
+  // rows carry empty percentages and children are indented one extra space per
+  // depth level. Node <= 22 used flat rows with full relative paths. This parser
+  // accepts both. (Without the tree support, core/engine files parsed as bare
+  // basenames like "usereye.js" and every path floor silently reported MISSING.)
+  const dirs = []; // stack of { depth, name } for tree reconstruction
   for (const line of stdout.split('\n')) {
     if (!line.includes('|')) continue;
-    const cleaned = line.replace(/^#\s?/, '');
-    const columns = cleaned.split('|').map(column => column.trim());
+    const cleaned = line.replace(/^#\s?/, '').replace(/^\u2139/, '');
+    const columns = cleaned.split('|');
     if (columns.length < 4) continue;
-    const file = columns[0];
+    const rawCell = columns[0];
+    const name = rawCell.trim();
+    if (name === 'file' || name.startsWith('---') || name === '') continue;
     const linePct = Number.parseFloat(columns[1]);
-    if (!Number.isFinite(linePct)) continue;
-    if (file === 'all files') {
-      overall = linePct;
+    if (name === 'all files') {
+      if (Number.isFinite(linePct)) overall = linePct;
       continue;
     }
-    if (file === 'file' || file.startsWith('---')) continue;
+    if (!Number.isFinite(linePct)) {
+      // Directory row (tree format): remember it for the children that follow.
+      // "\u2139 name" = depth 0; each extra leading space = one deeper level.
+      const depth = Math.max(
+        0,
+        rawCell.replace(/^\u2139/, '').length - rawCell.replace(/^\u2139/, '').replace(/^ +/, '').length - 1,
+      );
+      while (dirs.length && dirs[dirs.length - 1].depth >= depth) dirs.pop();
+      dirs.push({ depth, name });
+      continue;
+    }
+    const leafDepth = Math.max(
+      0,
+      rawCell.replace(/^\u2139/, '').length - rawCell.replace(/^\u2139/, '').replace(/^ +/, '').length - 1,
+    );
+    while (dirs.length && dirs[dirs.length - 1].depth >= leafDepth) dirs.pop();
+    const prefix = dirs.map(d => d.name).join('/');
+    const file = prefix ? `${prefix}/${name}` : name;
     entries.set(file, linePct);
   }
   return { entries, overall };
@@ -111,6 +135,9 @@ function normalize(file) {
   const cleaned = file.replace(/\\/g, '/');
   if (cleaned.startsWith('../') || cleaned.startsWith('/')) return null; // outside project
   if (cleaned.startsWith('tests/') || cleaned.startsWith('node_modules/')) return null;
+  // Tree-format tables include coverage of TEMP copies created by packaging
+  // tests (e.g. usereye-gate-copy-*/bin/usereye.js). Only real repo files count.
+  if (!fs.existsSync(path.join(root, cleaned))) return null;
   return cleaned;
 }
 
@@ -126,13 +153,33 @@ function main() {
     process.exit(1);
   }
 
-  const run = spawnSync(
-    process.execPath,
-    // Pass the directory: spawnSync does not expand globs without a shell,
-    // and node --test discovers *.test.js files recursively.
-    ['--test', '--experimental-test-coverage', 'tests/'],
-    { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 },
-  );
+  // Descoberta EXPLÍCITA dos arquivos de teste (fix 2026-10-10): `node --test <dir>`
+  // não é portável — o Node 24.21 tentou executar o diretório como módulo
+  // (MODULE_NOT_FOUND) em vez de descobrir *.test.js recursivamente. Passar a
+  // lista explícita de arquivos funciona igual em Node 18/20/22/24 e não depende
+  // da semântica de descoberta do runner.
+  const testsDir = path.join(root, 'tests');
+  const testFiles = (function walk(dir) {
+    const found = [];
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, entry.name);
+      if (entry.isDirectory()) found.push(...walk(p));
+      else if (entry.name.endsWith('.test.js')) found.push(p);
+    }
+    return found;
+  })(testsDir)
+    .map(p => path.relative(root, p).replace(/\\/g, '/'))
+    .sort();
+  if (testFiles.length === 0) {
+    console.error('coverage-gate: FAIL — nenhum arquivo tests/**/*.test.js encontrado.');
+    process.exit(1);
+  }
+
+  const run = spawnSync(process.execPath, ['--test', '--experimental-test-coverage', ...testFiles], {
+    cwd: root,
+    encoding: 'utf8',
+    maxBuffer: 64 * 1024 * 1024,
+  });
   process.stdout.write(run.stdout || '');
   process.stderr.write(run.stderr || '');
   if (run.status !== 0) {

@@ -1,0 +1,53 @@
+# Publish npm and container — adaptado do publish.yml original do pacote
+# para o layout pós-reorganização (pacote em src/usereye/).
+# Requer secrets.NPM_TOKEN (environment "npm") — configurar no marco M2 (issue #2).
+# Adaptado em 2026-10-10.
+
+name: Publish npm and container
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  packages: write
+
+defaults:
+  run:
+    working-directory: src/usereye
+
+jobs:
+  npm:
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+          cache: npm
+          cache-dependency-path: src/usereye/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: src/usereye
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/usereye:7,ghcr.io/${{ github.repository_owner }}/usereye:latest

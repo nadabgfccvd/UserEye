@@ -1,5 +1,7 @@
 # UserEye
 
+[![CI](https://github.com/nadabgfccvd/UserEye/actions/workflows/ci.yml/badge.svg)](https://github.com/nadabgfccvd/UserEye/actions/workflows/ci.yml)
+
 **Percepção de browser agnóstica de projeto, acessibilidade e testes exploratórios seguros para qualquer aplicação web.**
 
 UserEye abre uma aplicação web real, observa o que um usuário vê, explora caminhos seguros, checa acessibilidade e resiliência — e deixa evidência reproduzível: HTML, Markdown, JSON, trace, screenshot, vídeo e SARIF opcional.
